@@ -20,17 +20,17 @@ ActiveRecord::Schema.define(version: 2018_11_30_190827) do
   end
 
   create_table "days_foods", force: :cascade do |t|
-    t.integer "day_id_id"
-    t.integer "food_id_id"
-    t.index ["day_id_id"], name: "index_days_foods_on_day_id_id"
-    t.index ["food_id_id"], name: "index_days_foods_on_food_id_id"
+    t.integer "day_id"
+    t.integer "food_id"
+    t.index ["day_id"], name: "index_days_foods_on_day_id"
+    t.index ["food_id"], name: "index_days_foods_on_food_id"
   end
 
   create_table "days_symptoms", force: :cascade do |t|
-    t.integer "day_id_id"
-    t.integer "symptom_id_id"
-    t.index ["day_id_id"], name: "index_days_symptoms_on_day_id_id"
-    t.index ["symptom_id_id"], name: "index_days_symptoms_on_symptom_id_id"
+    t.integer "day_id"
+    t.integer "symptom_id"
+    t.index ["day_id"], name: "index_days_symptoms_on_day_id"
+    t.index ["symptom_id"], name: "index_days_symptoms_on_symptom_id"
   end
 
   create_table "foods", force: :cascade do |t|
