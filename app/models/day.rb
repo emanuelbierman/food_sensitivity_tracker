@@ -1,7 +1,7 @@
 class Day < ActiveRecord::Base
   belongs_to :user
-  has_many :foods
-  has_many :symptoms
+  has_and_belongs_to_many :foods
+  has_and_belongs_to_many :symptoms
 
   def month_day_year
 	   self.created_at.strftime("%m-%d-%y")

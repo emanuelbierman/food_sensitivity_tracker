@@ -6,15 +6,43 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-day = Day.new
-user = User.create(username: "emanuel", password: "password")
-food1 = Food.create(name: "gluten-free pretzels", serving: 2)
-food2 = Food.create(name: "egg-fried rice", serving: 1)
-food3 = Food.create(name: "chicken sausage", serving: 2)
+day1 = Day.create(comments: "Accidentally ate gluten.")
+day2 = Day.create(comments: "Accidentally ate onion powder.")
+
+user1 = User.create(username: "emanuel", password: "password")
+user2 = User.create(username: "laura", password: "mollydog")
+
+food1 = Food.create(name: "pretzels", serving: 2)
+food2 = Food.create(name: "chicken sausage", serving: 2)
+food3 = Food.create(name: "egg-fried rice", serving: 1)
+food4 = Food.create(name: "chickpea veggie burger", serving: 1)
+
 symptom1 = Symptom.create(description: "diarrhea: mealy", frequency: 2)
 symptom2 = Symptom.create(description: "diarrhea: wet", frequency: 2)
 symptom3 = Symptom.create(description: "acid reflux: throat burning", frequency: 1)
-day.user = user
-day.foods << [food1, food2, food3]
-day.symptoms << [symptom1, symptom2, symptom3]
-day.save
+symptom4 = Symptom.create(description: "acid reflux: constricted breathing", frequency: 3)
+
+day1.user = user1
+day1.foods << [food1, food2]
+day1.symptoms << [symptom1, symptom2]
+day1.save
+
+day2.user = user2
+day2.foods << [food3, food4]
+day2.symptoms << [symptom3, symptom4]
+day2.save
+
+# I should be able to call:
+# user.days
+# user.foods
+# user.symptoms
+#
+# day.foods
+# day.symptoms
+# day.user
+#
+# food.symptoms
+# food.days
+#
+# symptom.foods
+# symptom.days

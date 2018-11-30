@@ -1,5 +1,5 @@
 class Symptom < ActiveRecord::Base
-  has_many :days
+  has_and_belongs_to_many :days
   has_many :foods, through: :days
   validates_presence_of :description, :frequency
 

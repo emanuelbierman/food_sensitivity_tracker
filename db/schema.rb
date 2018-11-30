@@ -10,15 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_30_160212) do
+ActiveRecord::Schema.define(version: 2018_11_30_190827) do
 
   create_table "days", force: :cascade do |t|
     t.string "comments"
     t.datetime "created_at"
-    t.integer "food_id"
-    t.integer "symptom_id"
-    t.index ["food_id"], name: "index_days_on_food_id"
-    t.index ["symptom_id"], name: "index_days_on_symptom_id"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_days_on_user_id"
+  end
+
+  create_table "days_foods", force: :cascade do |t|
+    t.integer "day_id_id"
+    t.integer "food_id_id"
+    t.index ["day_id_id"], name: "index_days_foods_on_day_id_id"
+    t.index ["food_id_id"], name: "index_days_foods_on_food_id_id"
+  end
+
+  create_table "days_symptoms", force: :cascade do |t|
+    t.integer "day_id_id"
+    t.integer "symptom_id_id"
+    t.index ["day_id_id"], name: "index_days_symptoms_on_day_id_id"
+    t.index ["symptom_id_id"], name: "index_days_symptoms_on_symptom_id_id"
   end
 
   create_table "foods", force: :cascade do |t|
