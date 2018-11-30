@@ -3,6 +3,6 @@ class User < ActiveRecord::Base
   has_many :days
   has_many :foods, through: :days
   has_many :symptoms, through: :days
-  validates_presence_of: :username, :password
+  validates_presence_of :username, :password
 
 end
