@@ -27,12 +27,12 @@ ActiveRecord::Schema.define(version: 2018_11_30_160212) do
   end
 
   create_table "symptoms", force: :cascade do |t|
-    t.string "type"
+    t.string "description"
     t.integer "frequency"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "username"
     t.string "password_digest"
   end
 

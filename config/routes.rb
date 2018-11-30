@@ -7,4 +7,10 @@ Rails.application.routes.draw do
     resources :food
     resources :symptoms
   end
+
+  # only admins can delete foods and symptoms
+  # namespace admin do
+  #   get "delete", to: "foods#delete"
+  #   get "delete", to: "symptoms#delete"
+  # end
 end

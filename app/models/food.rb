@@ -5,13 +5,13 @@ class Food < ActiveRecord::Base
 
   def nested_array_of_each_previous_days_symptoms
     self.days.each do |day|
-      day.previous_day.symptoms
+      self.day.previous_day.symptoms
     end
   end
 
   def nested_array_of_each_two_days_ago_symptoms
     self.days.each do |day|
-      day.two_days_ago.symptoms
+      self.day.two_days_ago.symptoms
     end
   end
 end
