@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root "days#index"
   get "signup", to: "users#new"
   resources :users do
-    resources :days
+    resources :days, only: [:index, :show, :edit, :create]
   end
   resources :food
   resources :symptoms

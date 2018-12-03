@@ -1,3 +1,31 @@
 <%# in line table view - the past three user’s days - edit/add food, edit/add symptom - click to expand more? %>
 
-<%= @days.each 
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Today</th>
+      <th scope="col">the day after:</th>
+      <th scope="col">the day after that:</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= @days.each do |day| %>
+    <tr>
+      <th scope="row"></th>
+      <td><%= day.day_of_week, day.month_day_year %>
+      <%= day.symptoms %>
+      <%= day.foods %>
+      </td>
+      <td><%= day.next_day.month_day_year, day.next_day.month_day_year %>
+        <%= day.next_day_symptoms %>
+        <%= day.next_day_foods %>
+      </td>
+      <td><%= day.two_days_ahead.day_of_week, day.two_days_ahead.month_day_year %>
+        <%= day.two_days_ahead_symptoms %>
+        <%= day.two_days_ahead_foods %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

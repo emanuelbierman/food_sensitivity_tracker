@@ -1,19 +1,24 @@
 class DaysController < ApplicationController
 
-  before_action :set_day, only: [:show, :edit, :update, :destroy]
+  # before_action :set_day, only: [:show, :create]
   before_action :set_user
 
   def index
-    @days = Day.all
-  end
-
-  def new
     if @user
-      render 'new'
+      @days = @user.days
+      render 'index'
     else
       redirect_to "signup"
     end
   end
+
+  # def new
+  #   if @user
+  #     render 'new'
+  #   else
+  #     redirect_to "signup"
+  #   end
+  # end
 
   def create
     if @user
@@ -36,24 +41,15 @@ class DaysController < ApplicationController
 
   def show
     if @user
-      render 'show'
+      set_day
+      if @day.valid?
+        render 'show'
+      else
+        redirect_to "/"
+      end
     else
       redirect_to "signup"
     end
-  end
-
-  def edit
-    if @user
-      render 'edit'
-    else
-      redirect_to "/days/#{@day.id}/edit"
-    end
-  end
-
-  def update
-  end
-
-  def destroy
   end
 
   private
@@ -76,14 +72,18 @@ class DaysController < ApplicationController
       Day.find_by(month_day_year: @day.month_day_year)
     end
 
+    def set_day
+      @day = Day.new(day_params)
+      @day.set_month_day_year
+      unless abc_day.nil?
+        @day = abc_day
+      end
+    end
+
     def set_user
       if session[:user_id]
         @user = User.find_by(id: session[:user_id])
       end
-    end
-
-    def set_day
-      @day = Day.find(params[:id])
     end
 
     def food_params
