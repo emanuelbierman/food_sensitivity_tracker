@@ -13,10 +13,34 @@ class Day < ActiveRecord::Base
   end
 
   def previous_day
-    Day.find_by(id: (self.id - 1)) || nil
+    Day.find_by(id: (self.id - 1))
   end
 
   def two_days_ago
-    Day.find_by(id: (self.id - 2)) || nil
+    Day.find_by(id: (self.id - 2))
+  end
+
+  def next_day
+    Day.find_by(id: (self.id + 1))
+  end
+
+  def two_days_ahead
+    Day.find_by(id: (self.id + 2))
+  end
+
+  def previous_day_symptoms
+    self.previous_day.symptoms
+  end
+
+  def two_days_ago_symptoms
+    self.two_days_ago.symptoms
+  end
+
+  def next_day_symptoms
+    self.next_day.symptoms
+  end
+
+  def two_days_ahead_symptoms
+    self.two_days_ahead.symptoms
   end
 end

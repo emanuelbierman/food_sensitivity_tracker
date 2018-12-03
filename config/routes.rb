@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   get "signup", to: "users#new"
   resources :users do
     resources :days
-    resources :food
-    resources :symptoms
   end
+  resources :food
+  resources :symptoms
 
   # only admins can delete foods and symptoms
   # namespace admin do

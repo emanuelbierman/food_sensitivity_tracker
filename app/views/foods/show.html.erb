@@ -1,0 +1,26 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Your symptoms</th>
+      <th scope="col">on the days you ate <%= @food.name %>:</th>
+      <th scope="col">the day after:</th>
+      <th scope="col">the day after that:</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= @food_days.each do |day| %>
+    <tr>
+      <th scope="row"></th>
+      <td><%= day.day_of_week, day.month_day_year %>
+        <%= day.symptoms %>
+      </td>
+      <td><%= day.next_day.month_day_year, day.next_day.month_day_year %>
+        <%= day.next_day_symptoms %>
+      </td>
+      <td><%= day.two_days_ahead.day_of_week, day.two_days_ahead.month_day_year %>
+        <%= day.two_days_ahead_symptoms %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

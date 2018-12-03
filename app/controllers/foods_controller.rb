@@ -10,10 +10,11 @@ class FoodsController < ApplicationController
   end
 
   def create
-    
+
   end
 
   def show
+    @food_days = @food.days
   end
 
 end
