@@ -6,8 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-day1 = Day.create(comments: "Accidentally ate gluten.")
-day2 = Day.create(comments: "Accidentally ate onion powder.")
+day1 = Day.create(month_day_year: Time.now.strftime("%m-%d-%y"), comments: "Accidentally ate gluten.")
+day2 = Day.create(month_day_year: 1.day.ago.strftime("%m-%d-%y"), comments: "Accidentally ate onion powder.")
 
 user1 = User.create(username: "emanuel", password: "password")
 user2 = User.create(username: "laura", password: "mollydog")

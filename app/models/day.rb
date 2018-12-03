@@ -2,9 +2,10 @@ class Day < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :foods
   has_and_belongs_to_many :symptoms
+  validates_presence_of :month_day_year
 
-  def month_day_year
-	   self.created_at.strftime("%m-%d-%y")
+  def set_m_d_y
+    self.month_day_year = self.created_at.strftime("%m-%d-%y")
   end
 
   def day_of_week
