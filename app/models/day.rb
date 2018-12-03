@@ -6,6 +6,7 @@ class Day < ActiveRecord::Base
 
   def set_m_d_y
     self.month_day_year = self.created_at.strftime("%m-%d-%y")
+    self.save
   end
 
   def day_of_week
