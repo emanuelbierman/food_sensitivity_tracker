@@ -1,31 +1,53 @@
 class DaysController < ApplicationController
 
   before_action :set_day, only: [:show, :edit, :update, :destroy]
-  # set_day before_action @day = Day.find(params[:id])
+  before_action :set_user
 
   def index
     @days = Day.all
   end
 
   def new
+    if @user
+      render 'new'
+    else
+      redirect_to "signup"
+    end
   end
 
   def create
-    @day = Day.new(day_params)
-    @day.set_month_day_year
-    unless abc_day.nil?
-      @day = abc_day
-    end
-    if @day.valid?
-      set_food
-      set_symptoms
-      redirect_to "/"
+    if @user
+      @day = Day.new(day_params)
+      @day.set_month_day_year
+      unless abc_day.nil?
+        @day = abc_day
+      end
+      if @day.valid?
+        set_food
+        set_symptoms
+        redirect_to "/"
+      else
+        redirect_to "users/#{@user.id}/days/new"
+      end
     else
-      redirect_to "/days/new"
+      redirect_to "signup"
     end
   end
 
   def show
+    if @user
+      render 'show'
+    else
+      redirect_to "signup"
+    end
+  end
+
+  def edit
+    if @user
+      render 'edit'
+    else
+      redirect_to "/days/#{@day.id}/edit"
+    end
   end
 
   def update
@@ -52,6 +74,12 @@ class DaysController < ApplicationController
     def abc_day
       # checks if a day instance has Already Been Created for that date
       Day.find_by(month_day_year: @day.month_day_year)
+    end
+
+    def set_user
+      if session[:user_id]
+        @user = User.find_by(id: session[:user_id])
+      end
     end
 
     def set_day
