@@ -4,9 +4,8 @@ class Day < ActiveRecord::Base
   has_and_belongs_to_many :symptoms
   validates_presence_of :month_day_year
 
-  def set_m_d_y
+  def set_month_day_year
     self.month_day_year = self.created_at.strftime("%m-%d-%y")
-    self.save
   end
 
   def day_of_week
