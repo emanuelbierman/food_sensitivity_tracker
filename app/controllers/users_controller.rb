@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    
   end
 
   def show
@@ -18,7 +19,7 @@ class UsersController < ApplicationController
         redirect_to "/"
       end
     else
-      redirect_to "signup"
+      redirect_to "signin"
     end
   end
 

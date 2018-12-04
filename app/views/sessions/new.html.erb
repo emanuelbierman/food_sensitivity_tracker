@@ -1,7 +1,17 @@
+<%# two collapsible cards: %>
+
 <%= form_for @user, url: {conroller: "sessions", action: "create"} do |f| %>
-  <%= f.label :name, "Your name:"%>
+  <%= f.label :name, "Name:"%>
   <%= f.text_field :username %>
-  <%= f.label :password, "Your password:"%>
+  <%= f.label :password, "Password:"%>
   <%= f.text_field :password %>
   <%= f.submit "Sign In" %>
+<% end %>
+
+<%= form_for @user, url: {conroller: "users", action: "create"} do |f| %>
+  <%= f.label :name, "Name:"%>
+  <%= f.text_field :username %>
+  <%= f.label :password, "Password:"%>
+  <%= f.text_field :password %>
+  <%= f.submit "Sign Up" %>
 <% end %>
