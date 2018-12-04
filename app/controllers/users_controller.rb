@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       redirect_to "/"
     else
       @message = @user.errors
-      redirect_to "signin"
+      redirect_to "/signin"
     end
   end
 
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       #   redirect_to "/"
       # end
     else
-      redirect_to "signin"
+      redirect_to "/signin"
     end
   end
 

@@ -8,7 +8,7 @@ class DaysController < ApplicationController
       @user_days = @user.days
       render 'index'
     else
-      redirect_to "signin"
+      redirect_to "/signin"
     end
   end
 
@@ -48,7 +48,7 @@ class DaysController < ApplicationController
         redirect_to "/"
       end
     else
-      redirect_to "signup"
+      redirect_to "/signup"
     end
   end
 

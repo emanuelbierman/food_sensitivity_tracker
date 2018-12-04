@@ -26,7 +26,7 @@ class FoodsController < ApplicationController
         redirect_to "/"
       end
     else
-      redirect_to "signup"
+      redirect_to "/signup"
     end
   end
 
