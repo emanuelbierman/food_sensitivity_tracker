@@ -1,19 +1,45 @@
-<%# in line table view - the past three user’s days - edit/add food, edit/add symptom - click to expand more? %>
-<h3>Welcome! Here's what you've been putting in your body </h3>
-<%= @user_days.each do |day| %>
-<p>
-  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-    <%= day.day_of_week, day.month_day_year %>
-  </button>
-</p>
-<div class="collapse" id="collapseExample">
-  <div class="card card-body">
-    What did you put in your body?
-    <%= day.symptoms %>
-    (form for a new symptom)
-    What did your body experience?
-    <%= day.foods %>
-    (form for a new food)
+<h3>Welcome! Here's what you've been putting in your body: </h3>
+<div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <%= current_day.day_of_week, current_day.month_day_year %>
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        What did you put in your body?
+        <%= current_day.symptoms %>
+        (form for a new symptom)
+        What did your body experience?
+        <%= current_day.foods %>
+        (form for a new food)
+      </div>
+    </div>
   </div>
+
+  <%= @user_days.each do |day| %>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <%= day.day_of_week, day.month_day_year %>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+        What did you put in your body?
+        <%= day.symptoms %>
+        (form for a new symptom)
+        What did your body experience?
+        <%= day.foods %>
+        (form for a new food)
+      </div>
+    </div>
+  </div>
+  <% end %>
 </div>
-<% end %>

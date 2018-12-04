@@ -5,7 +5,6 @@ class DaysController < ApplicationController
 
   def index
     if @user
-      @user_today = @user.today
       @user_days = @user.days
       render 'index'
     else
