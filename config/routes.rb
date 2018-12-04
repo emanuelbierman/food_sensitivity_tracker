@@ -2,11 +2,13 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root "days#index"
   get "signup", to: "users#new"
+  get "login", to: "sessions#new"
+  get "logout", to: "sessions#logout"
   resources :users do
     resources :days, only: [:index, :show, :edit, :create]
+    resources :food, only: [:index, :new, :create, :show]
+    resources :symptoms, only: [:index, :new, :create, :show]
   end
-  resources :food
-  resources :symptoms
 
   # only admins can delete foods and symptoms
   # namespace admin do
