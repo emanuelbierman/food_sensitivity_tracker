@@ -1,10 +1,11 @@
+<h3>What happens when you eat <%= @food.name %></h3>
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Your symptoms</th>
-      <th scope="col">on the days you ate <%= @food.name %>:</th>
-      <th scope="col">the day after:</th>
-      <th scope="col">the day after that:</th>
+      <th scope="col">Symptoms</th>
+      <th scope="col">on the day:</th>
+      <th scope="col">next day:</th>
+      <th scope="col">2 days later:</th>
     </tr>
   </thead>
   <tbody>
@@ -17,8 +18,8 @@
       <td><%= day.next_day.month_day_year, day.next_day.month_day_year %>
         <%= day.next_day_symptoms %>
       </td>
-      <td><%= day.two_days_ahead.day_of_week, day.two_days_ahead.month_day_year %>
-        <%= day.two_days_ahead_symptoms %>
+      <td><%= day.two_days_later.day_of_week, day.two_days_later.month_day_year %>
+        <%= day.two_days_later_symptoms %>
       </td>
     </tr>
     <% end %>

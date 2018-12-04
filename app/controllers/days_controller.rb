@@ -53,6 +53,12 @@ class DaysController < ApplicationController
   end
 
   private
+    def set_user
+      if session[:user_id]
+        @user = User.find_by(id: session[:user_id])
+      end
+    end
+
     def set_food
       @food = Food.find_or_create_by(food_params)
       @day.foods << @food if @food
@@ -77,12 +83,6 @@ class DaysController < ApplicationController
       @day.set_month_day_year
       unless abc_day.nil?
         @day = abc_day
-      end
-    end
-
-    def set_user
-      if session[:user_id]
-        @user = User.find_by(id: session[:user_id])
       end
     end
 

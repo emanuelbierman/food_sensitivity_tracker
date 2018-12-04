@@ -24,7 +24,7 @@ class Day < ActiveRecord::Base
     Day.find_by(id: (self.id + 1))
   end
 
-  def two_days_ahead
+  def two_days_later
     Day.find_by(id: (self.id + 2))
   end
 
@@ -40,7 +40,7 @@ class Day < ActiveRecord::Base
     self.next_day.symptoms
   end
 
-  def two_days_ahead_symptoms
-    self.two_days_ahead.symptoms
+  def two_days_later_symptoms
+    self.two_days_later.symptoms
   end
 end
