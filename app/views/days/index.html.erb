@@ -1,31 +1,19 @@
 <%# in line table view - the past three user’s days - edit/add food, edit/add symptom - click to expand more? %>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">Today</th>
-      <th scope="col">the day after:</th>
-      <th scope="col">the day after that:</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= @days.each do |day| %>
-    <tr>
-      <th scope="row"></th>
-      <td><%= day.day_of_week, day.month_day_year %>
-      <%= day.symptoms %>
-      <%= day.foods %>
-      </td>
-      <td><%= day.next_day.month_day_year, day.next_day.month_day_year %>
-        <%= day.next_day_symptoms %>
-        <%= day.next_day_foods %>
-      </td>
-      <td><%= day.two_days_ahead.day_of_week, day.two_days_ahead.month_day_year %>
-        <%= day.two_days_ahead_symptoms %>
-        <%= day.two_days_ahead_foods %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<h3>Welcome! Here's what you've been putting in your body </h3>
+<%= @user_days.each do |day| %>
+<p>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    <%= day.day_of_week, day.month_day_year %>
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    What did you put in your body?
+    <%= day.symptoms %>
+    (form for a new symptom)
+    What did your body experience?
+    <%= day.foods %>
+    (form for a new food)
+  </div>
+</div>
+<% end %>

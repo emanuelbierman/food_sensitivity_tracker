@@ -5,7 +5,8 @@ class DaysController < ApplicationController
 
   def index
     if @user
-      @days = @user.days
+      @user_today = @user.today
+      @user_days = @user.days
       render 'index'
     else
       redirect_to "signup"
@@ -20,24 +21,24 @@ class DaysController < ApplicationController
   #   end
   # end
 
-  def create
-    if @user
-      @day = Day.new(day_params)
-      @day.set_month_day_year
-      unless abc_day.nil?
-        @day = abc_day
-      end
-      if @day.valid?
-        set_food
-        set_symptoms
-        redirect_to "/"
-      else
-        redirect_to "users/#{@user.id}/days/new"
-      end
-    else
-      redirect_to "signup"
-    end
-  end
+  # def create
+  #   if @user
+  #     @day = Day.new(day_params)
+  #     # @day.set_month_day_year
+  #     unless abc_day.nil?
+  #       @day = abc_day
+  #     end
+  #     if @day.valid?
+  #       set_food
+  #       set_symptoms
+  #       redirect_to "/"
+  #     else
+  #       redirect_to "users/#{@user.id}/days/new"
+  #     end
+  #   else
+  #     redirect_to "signup"
+  #   end
+  # end
 
   def show
     if @user
@@ -71,19 +72,6 @@ class DaysController < ApplicationController
     	@day.symptoms << @symptom if @symptom
     	@day.save
     	@symptom.save
-    end
-
-    def abc_day
-      # checks if a day instance has Already Been Created for that date
-      Day.find_by(month_day_year: @day.month_day_year)
-    end
-
-    def set_day
-      @day = Day.new(day_params)
-      @day.set_month_day_year
-      unless abc_day.nil?
-        @day = abc_day
-      end
     end
 
     def food_params
