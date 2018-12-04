@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # get "signup", to: "users#new"
   get "signin", to: "sessions#new"
   get "signout", to: "sessions#logout"
+  get "profile", to: "users#show"
   resources :users do
     resources :days, only: [:index, :show, :edit, :create]
     resources :food, only: [:index, :new, :create, :show]

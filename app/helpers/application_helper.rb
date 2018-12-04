@@ -1,4 +1,13 @@
 module ApplicationHelper
+
+  def current_user
+    User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def logged_in?
+    !!current_user
+  end
+
   def abc_day
     # has a day Already Been Created?
     Day.find_by(month_day_year: @day.month_day_year)

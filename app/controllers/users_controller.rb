@@ -1,23 +1,30 @@
 class UsersController < ApplicationController
 
-  before_action :set_user
+  before_action :set_user, only: [:show]
 
   def new
     @user = User.new
   end
 
   def create
-    
+    @user = User.create(user_params)
+    if @user.valid?
+      session[:user_id] = @user.id
+      redirect_to "/"
+    else
+      @message = @user.errors
+      redirect_to "signin"
+    end
   end
 
   def show
     if @user
-      set_day
-      if @day.valid?
-        render 'show'
-      else
-        redirect_to "/"
-      end
+      # set_day
+      # if @day.valid?
+      #   render 'show'
+      # else
+      #   redirect_to "/"
+      # end
     else
       redirect_to "signin"
     end

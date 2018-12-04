@@ -10,6 +10,11 @@
   </head>
 
   <body>
+    <div class="navbar">
+      <%# display links to: home, %>
+      <%# if logged_in?, display links to: profile, logout %>
+      <%# else, display links to: signin %>
+    </div>
     <%= yield %>
   </body>
 </html>
