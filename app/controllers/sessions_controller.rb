@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
 
   def new
     @user = User.new
+    @errors = params[:errors] if params[:errors]
   end
 
   def create
@@ -10,6 +11,7 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       redirect_to "/"
     else
+      @errors = @user.errors
       redirect_to "/signin"
     end
   end
@@ -17,7 +19,8 @@ class SessionsController < ApplicationController
   def destroy
     if session[:user_id]
       session.destroy
-      redirect_to "/signin"
+      @errors = "You have been logged out."
+      redirect_to signin_path(errors: @errors)
     end
   end
 end

@@ -1,29 +1,35 @@
+<h4>Sign in or log in to begin tracking your food intolerances: </h4>
 <div class="accordion" id="accordionExample">
+
   <div class="card">
     <div class="card-header" id="headingOne">
       <h5 class="mb-0">
-        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
           Sign In
         </button>
       </h5>
     </div>
-
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
         <%= form_for @user, url: {controller: "sessions", action: "create"} do |f| %>
-          <%= f.label :name, "Name:"%>
-          <%= f.text_field :username %>
-          <%= f.label :password, "Password:"%>
-          <%= f.text_field :password %>
-          <%= f.submit "Sign In" %>
+          <div class="form-group">
+            <%= f.label :name, "Name:"%>
+            <%= f.text_field :username %>
+          </div>
+          <div class="form-group">
+            <%= f.label :password, "Password:"%>
+            <%= f.text_field :password %>
+          </div>
+          <%= f.submit "Sign In", class: "btn btn-primary" %>
         <% end %>
       </div>
     </div>
   </div>
+
   <div class="card">
     <div class="card-header" id="headingTwo">
       <h5 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
           Sign Up
         </button>
       </h5>
@@ -31,13 +37,18 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
       <div class="card-body">
         <%= form_for @user, url: {controller: "users", action: "create"} do |f| %>
-          <%= f.label :name, "Name:"%>
-          <%= f.text_field :username %>
-          <%= f.label :password, "Password:"%>
-          <%= f.text_field :password %>
-          <%= f.submit "Sign Up" %>
+          <div class="form-group">
+            <%= f.label :name, "Name:"%>
+            <%= f.text_field :username %>
+          </div>
+          <div class="form-group">
+            <%= f.label :password, "Password:"%>
+            <%= f.text_field :password %>
+          </div>
+          <%= f.submit "Sign Up", class: "btn btn-primary" %>
         <% end %>
       </div>
     </div>
   </div>
+
 </div>
