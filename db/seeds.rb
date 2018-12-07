@@ -11,6 +11,7 @@ day2 = Day.create(month_day_year: 1.day.ago.strftime("%m-%d-%y"), comments: "Acc
 
 user1 = User.create(username: "emanuel", password: "password")
 user2 = User.create(username: "laura", password: "mollydog")
+user = User.create(username: "user", password: "user")
 
 food1 = Food.create(name: "pretzels", serving: 2)
 food2 = Food.create(name: "chicken sausage", serving: 2)

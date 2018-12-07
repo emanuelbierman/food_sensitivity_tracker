@@ -11,9 +11,13 @@
 
   <body>
     <div class="navbar">
-      <%# display links to: home, %>
-      <%# if logged_in?, display links to: profile, logout %>
-      <%# else, display links to: signin %>
+      <%= link_to "Home", "/" %>
+      <% if logged_in? %>
+        <%= link_to "Profile", "/users/#{current_user.id}" %>
+        <%= link_to "Sign Out", "/signout" %>
+      <% else %>
+        <%= link_to "Sign In", "/signin" %>
+      <% end %>
     </div>
     <%= yield %>
   </body>
