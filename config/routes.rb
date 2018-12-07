@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   root "days#index"
   # get "signup", to: "users#new"
   get "/signin", to: "sessions#new"
-  get "/sessions/create", to: "sessions#create"
-  get "/signout", to: "sessions#destroy"
+  post "/sessions/create", to: "sessions#create"
+  post "/signout", to: "sessions#destroy"
   resources :users do
     resources :days, only: [:index, :show, :edit, :create]
     resources :food, only: [:index, :new, :create, :show]

@@ -1,45 +1,39 @@
 <h3>Welcome <%= @user.username %>!</h3>
-<div class="accordion" id="accordionExample">
-  <div class="card">
-    <div class="card-header" id="headingOne">
-      <h5 class="mb-0">
-        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          <%= current_day.day_of_week, current_day.month_day_year %>
-        </button>
-      </h5>
-    </div>
 
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-      <div class="card-body">
-        What did you put in your body?
-        <%= current_day.symptoms %>
-        (form for a new symptom)
-        What did your body experience?
-        <%= current_day.foods %>
-        (form for a new food)
-      </div>
-    </div>
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    <%= current_day.day_of_week + ", " + current_day.month_day_year %>
   </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      What did you put in your body?
+      <%= current_day.symptoms %>
+      (form for a new symptom)
+    </li>
+    <li class="list-group-item">
+      What did your body experience?
+      <%= current_day.foods %>
+      (form for a new food)</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+  </ul>
+</div>
 
+<div class="card" style="width: 18rem;">
   <%= @user_days.each do |day| %>
-  <div class="card">
-    <div class="card-header" id="headingTwo">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          <%= day.day_of_week, day.month_day_year %>
-        </button>
-      </h5>
+    <div class="card-header">
+      <%= day.day_of_week + ", " + day.month_day_year %>
     </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-      <div class="card-body">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
         What did you put in your body?
         <%= day.symptoms %>
         (form for a new symptom)
+      </li>
+      <li class="list-group-item">
         What did your body experience?
         <%= day.foods %>
-        (form for a new food)
-      </div>
-    </div>
-  </div>
+        (form for a new food)</li>
+      <li class="list-group-item">Vestibulum at eros</li>
+    </ul>
   <% end %>
 </div>
