@@ -5,7 +5,6 @@ class DaysController < ApplicationController
 
   def index
     if @user
-      @user_days = @user.days
       render 'index'
     elsif !@user.nil? && @user.errors.any?
       @errors = @user.errors.messages

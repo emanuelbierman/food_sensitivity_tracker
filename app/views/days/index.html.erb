@@ -19,7 +19,7 @@
 </div>
 
 <div class="card" style="width: 18rem;">
-  <%= @user_days.each do |day| %>
+  <%= @user.days.each do |day| %>
     <div class="card-header">
       <%= day.day_of_week + ", " + day.month_day_year %>
     </div>

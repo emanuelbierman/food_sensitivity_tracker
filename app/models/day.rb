@@ -2,11 +2,11 @@ class Day < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :foods
   has_and_belongs_to_many :symptoms
-  # validates_presence_of :month_day_year
-  after_find do |day|
-    day.set_month_day_year
-  end
-  after_initialize do |day|
+  validates_presence_of :user_id
+  # after_find do |day|
+  #   day.set_month_day_year
+  # end
+  after_create do |day|
     day.set_month_day_year
   end
 

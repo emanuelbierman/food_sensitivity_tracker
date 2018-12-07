@@ -25,15 +25,15 @@ module ApplicationHelper
   end
 
   def current_day
-    @day = Day.new
-    unless abc_day.nil?
-      @day = abc_day
-    end
     if @user
-      unless @user.days.include?(@day)
-        @user.days << @day
+      @day = Day.create(user_id: @user.id)
+      unless abc_day.nil?
+        @day = abc_day
       end
+      # unless @user.days.include?(@day)
+      #   @user.days << @day
+      # end
+      @day
     end
-    @day
   end
 end

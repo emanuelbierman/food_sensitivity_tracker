@@ -6,12 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-day1 = Day.create(month_day_year: Time.now.strftime("%m-%d-%y"), comments: "Accidentally ate gluten.")
-day2 = Day.create(month_day_year: 1.day.ago.strftime("%m-%d-%y"), comments: "Accidentally ate onion powder.")
-
 user1 = User.create(username: "emanuel", password: "password")
 user2 = User.create(username: "laura", password: "mollydog")
 user = User.create(username: "user", password: "user")
+
+day1 = Day.create(user_id: 1, comments: "Accidentally ate gluten.")
+previous_day = Day.create(user_id: 2, comments: "Accidentally ate onion powder.")
+previous_day.month_day_year = 1.day.ago.strftime("%m-%d-%y")
+previous_day.day_of_week = 1.day.ago.strftime("%A")
 
 food1 = Food.create(name: "pretzels", serving: 2)
 food2 = Food.create(name: "chicken sausage", serving: 2)
@@ -28,7 +30,7 @@ day1.foods << [food1, food2]
 day1.symptoms << [symptom1, symptom2]
 day1.save
 
-day2.user = user2
+day2.user = user1
 day2.foods << [food3, food4]
 day2.symptoms << [symptom3, symptom4]
 day2.save
