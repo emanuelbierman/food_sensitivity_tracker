@@ -12,8 +12,8 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to "/"
     else
-      @message = @user.errors
-      redirect_to "/signin"
+      @errors = @user.errors
+      redirect_to signin_path(errors: @errors)
     end
   end
 

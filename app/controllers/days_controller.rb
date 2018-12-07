@@ -8,7 +8,8 @@ class DaysController < ApplicationController
       @user_days = @user.days
       render 'index'
     else
-      redirect_to "/signin"
+      @errors = @user.errors
+      redirect_to signin_path(errors: @errors)
     end
   end
 
@@ -45,6 +46,7 @@ class DaysController < ApplicationController
       if @day.valid?
         render 'show'
       else
+        @errors = @day.errors
         redirect_to "/"
       end
     else
