@@ -19,12 +19,7 @@ class UsersController < ApplicationController
 
   def show
     if @user
-      # set_day
-      # if @day.valid?
-      #   render 'show'
-      # else
-      #   redirect_to "/"
-      # end
+      render 'show'
     else
       redirect_to root_path
     end

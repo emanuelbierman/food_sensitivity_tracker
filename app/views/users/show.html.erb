@@ -9,13 +9,43 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       What did you put in your body today?
-      <%= current_day.symptoms %>
-      (form for a new symptom)
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col">Food</th>
+            <th scope="col">Serving</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% current_day.foods.each do |food| %>
+          <tr>
+            <th scope="row"><%= food.name %></th>
+            <td><%= food.serving %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <p>(form for a new food)</p>
     </li>
     <li class="list-group-item">
       What did your body experience today?
-      <%= current_day.foods %>
-      (form for a new food)
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col">Symptom</th>
+            <th scope="col">Frequency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% current_day.symptoms.each do |symptom| %>
+          <tr>
+            <th scope="row"><%= symptom.description %></th>
+            <td><%= symptom.frequency %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <p>(form for a new symptom)</p>
     </li>
   </ul>
 </div>
