@@ -8,16 +8,15 @@ class Day < ActiveRecord::Base
   # end
   after_create do |day|
     day.set_month_day_year
+    day.set_day_of_week
   end
 
   def set_month_day_year
-    unless self.month_day_year
-      self.month_day_year = self.created_at.strftime("%m-%d-%y")
-    end
+    self.month_day_year = self.created_at.strftime("%m-%d-%y")
   end
 
-  def day_of_week
-	   self.created_at.strftime("%A")
+  def set_day_of_week
+	   self.day_of_week = self.created_at.strftime("%A")
   end
 
   def previous_day

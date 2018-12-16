@@ -6,34 +6,34 @@
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
-      What did you put in your body?
+      What did you put in your body today?
       <%= current_day.symptoms %>
       (form for a new symptom)
     </li>
     <li class="list-group-item">
-      What did your body experience?
+      What did your body experience today?
       <%= current_day.foods %>
       (form for a new food)</li>
     <li class="list-group-item">Vestibulum at eros</li>
   </ul>
 </div>
 
-<div class="card" style="width: 18rem;">
-  <%= @user.days.each do |day| %>
-    <div class="card-header">
-      <%= day.day_of_week + ", " + day.month_day_year %>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">
-        What did you put in your body?
-        <%= day.symptoms %>
-        (form for a new symptom)
-      </li>
-      <li class="list-group-item">
-        What did your body experience?
-        <%= day.foods %>
-        (form for a new food)</li>
-      <li class="list-group-item">Vestibulum at eros</li>
-    </ul>
-  <% end %>
-</div>
+<!-- <div class="card" style="width: 18rem;"> -->
+  <%# <% @user.days.each do |day| %> %>
+    <!-- <div class="card-header"> -->
+      <%# <%= day.day_of_week + ", " + day.month_day_year %> %>
+    <!-- </div> -->
+    <!-- <ul class="list-group list-group-flush"> -->
+      <!-- <li class="list-group-item"> -->
+        <!-- What did you put in your body? -->
+        <%# <%= day.symptoms %> %>
+        <!-- (form for a new symptom) -->
+      <!-- </li> -->
+      <!-- <li class="list-group-item"> -->
+        <!-- What did your body experience? -->
+        <%# <%= day.foods %> %>
+        <%# (form for a new food)</li> %>
+      <!-- <li class="list-group-item">Vestibulum at eros</li> -->
+    <!-- </ul> -->
+  <%# <% end %> %>
+<!-- </div> -->

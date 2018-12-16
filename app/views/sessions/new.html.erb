@@ -20,7 +20,7 @@
   <div class="card-body">
     <%= form_for @user, url: {controller: "users", action: "create"} do |f| %>
       <div class="form-group">
-        <%= f.label :name, "Name:"%>
+        <%= f.label :name, "Username:"%>
         <%= f.text_field :username %>
       </div>
       <div class="form-group">

@@ -11,7 +11,7 @@ user2 = User.create(username: "laura", password: "mollydog")
 user = User.create(username: "user", password: "user")
 
 day1 = Day.create(user_id: 1, comments: "Accidentally ate gluten.")
-previous_day = Day.create(user_id: 2, comments: "Accidentally ate onion powder.")
+previous_day = Day.create(user_id: 1, comments: "Accidentally ate dairy.")
 previous_day.month_day_year = 1.day.ago.strftime("%m-%d-%y")
 previous_day.day_of_week = 1.day.ago.strftime("%A")
 
@@ -25,15 +25,13 @@ symptom2 = Symptom.create(description: "diarrhea: wet", frequency: 2)
 symptom3 = Symptom.create(description: "acid reflux: throat burning", frequency: 1)
 symptom4 = Symptom.create(description: "acid reflux: constricted breathing", frequency: 3)
 
-day1.user = user1
 day1.foods << [food1, food2]
 day1.symptoms << [symptom1, symptom2]
 day1.save
 
-day2.user = user1
-day2.foods << [food3, food4]
-day2.symptoms << [symptom3, symptom4]
-day2.save
+previous_day.foods << [food3, food4]
+previous_day.symptoms << [symptom3, symptom4]
+previous_day.save
 
 # I should be able to call:
 # user.days
