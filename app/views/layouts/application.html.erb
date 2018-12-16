@@ -18,15 +18,15 @@
   </head>
 
   <body>
-    <div class="navbar">
-      <%= link_to "Home", root_path %>
+    <div class="navbar navbar-light bg-light">
+      <%= link_to "Home", root_path, class: 'navbar-brand' %>
       <% if logged_in? %>
-        <%= link_to "Sign Out", signout_path %>
+        <%= link_to "Sign Out", signout_path, class: 'navbar-brand' %>
       <% end %>
     </div>
     <% if @errors %>
-        <p><%= @errors %></p>
-      <% end %>
+      <p class="alert alert-primary" role="alert"><%= @errors %></p>
+    <% end %>
     <%= yield %>
   </body>
 </html>

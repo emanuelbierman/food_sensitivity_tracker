@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # get "signup", to: "users#new"
   root to: "sessions#new"
   post "/sessions/create", to: "sessions#create"
-  post "/signout", to: "sessions#destroy"
+  get "/signout", to: "sessions#destroy"
   resources :users do
     resources :days, only: [:index, :show, :edit, :create]
     resources :food, only: [:index, :new, :create, :show]
