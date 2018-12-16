@@ -8,9 +8,9 @@ class DaysController < ApplicationController
       render 'index'
     elsif !@user.nil? && @user.errors.any?
       @errors = @user.errors.messages
-      redirect_to signin_path(errors: @errors)
+      redirect_to root_path(errors: @errors)
     else
-      redirect_to signin_path
+      redirect_to root_path
     end
   end
 
@@ -48,10 +48,10 @@ class DaysController < ApplicationController
         render 'show'
       else
         @errors = @day.errors
-        redirect_to "/"
+        redirect_to root_path
       end
     else
-      redirect_to "/signup"
+      redirect_to root_path
     end
   end
 

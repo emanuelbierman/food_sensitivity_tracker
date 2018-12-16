@@ -23,10 +23,12 @@ class FoodsController < ApplicationController
         @food_days = @food.days
         render 'show'
       else
-        redirect_to "/"
+        @errors = @food.errors
+        redirect_to "/users/#{@user.id}"
       end
     else
-      redirect_to "/signup"
+      # @errors = @user.errors
+      redirect_to root_path
     end
   end
 

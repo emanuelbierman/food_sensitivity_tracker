@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root "days#index"
+  # root "users#show"
   # get "signup", to: "users#new"
-  get "/signin", to: "sessions#new"
+  root to: "sessions#new"
   post "/sessions/create", to: "sessions#create"
   post "/signout", to: "sessions#destroy"
   resources :users do

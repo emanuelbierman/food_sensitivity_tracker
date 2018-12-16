@@ -10,10 +10,10 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
     if @user.valid?
       session[:user_id] = @user.id
-      redirect_to "/"
+      redirect_to root_path
     else
       @errors = @user.errors
-      redirect_to signin_path(errors: @errors)
+      redirect_to root_path(errors: @errors)
     end
   end
 
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       #   redirect_to "/"
       # end
     else
-      redirect_to "/signin"
+      redirect_to root_path
     end
   end
 

@@ -9,10 +9,10 @@ class SessionsController < ApplicationController
     @user = User.find_or_create_by(username: params[:user][:username])
     if @user && @user.authenticate(params[:user][:password])
       session[:user_id] = @user.id
-      redirect_to "/"
+      redirect_to "/users/#{@user.id}"
     else
       @errors = @user.errors
-      redirect_to "/signin"
+      redirect_to root_path
     end
   end
 
@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
     if session[:user_id]
       session.destroy
       @errors = "You have been logged out."
-      redirect_to signin_path(errors: @errors)
+      redirect_to root_path(errors: @errors)
     end
   end
 end

@@ -1,1 +1,21 @@
 <%# display/edit username, link to user_symptoms_path, link to user_food_path %>
+
+<h3>Welcome <%= @user.username %>!</h3>
+
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    <%= current_day.day_of_week + ", " + current_day.month_day_year %>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      What did you put in your body today?
+      <%= current_day.symptoms %>
+      (form for a new symptom)
+    </li>
+    <li class="list-group-item">
+      What did your body experience today?
+      <%= current_day.foods %>
+      (form for a new food)
+    </li>
+  </ul>
+</div>

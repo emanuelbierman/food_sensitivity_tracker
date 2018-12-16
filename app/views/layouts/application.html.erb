@@ -19,14 +19,14 @@
 
   <body>
     <div class="navbar">
-      <%= link_to "Home", "/" %>
+      <%= link_to "Home", root_path %>
       <% if logged_in? %>
-        <%= link_to "Profile", "/users/#{current_user.id}" %>
         <%= link_to "Sign Out", signout_path %>
-      <% else %>
-        <%= link_to "Sign In", signin_path %>
       <% end %>
     </div>
+    <% if @errors %>
+        <p><%= @errors %></p>
+      <% end %>
     <%= yield %>
   </body>
 </html>
