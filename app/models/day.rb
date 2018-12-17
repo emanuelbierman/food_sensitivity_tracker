@@ -35,12 +35,12 @@ class Day < ActiveRecord::Base
     Day.find_by(id: (self.id + 2))
   end
 
-  def previous_day_symptoms
-    self.previous_day.symptoms
+  def previous_day_foods
+    self.previous_day.foods
   end
 
-  def two_days_ago_symptoms
-    self.two_days_ago.symptoms
+  def two_days_ago_foods
+    self.two_days_ago.foods
   end
 
   def next_day_symptoms

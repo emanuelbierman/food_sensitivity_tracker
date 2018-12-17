@@ -21,6 +21,7 @@ class UsersController < ApplicationController
     if @user
       session[:user_id] = @user.id
       @food = Food.new
+      @symptom = Symptom.new
       @day = current_day(@user)
       render 'show'
     else

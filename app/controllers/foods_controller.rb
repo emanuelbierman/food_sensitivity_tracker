@@ -17,15 +17,16 @@ class FoodsController < ApplicationController
     end
   end
 
-  def new
-    @food = Food.new
-  end
+  # def new
+  #   @food = Food.new
+  # end
 
   def create
     if @user
       if @food.valid?
-        current_day.foods << @food
-        current_day.save
+        @day = current_day(@user.id)
+        @day.foods << @food
+        @day.save
         session[:user_id] = @user.id
         @errors = "Your food has been added."
         redirect_to user_path(@user)

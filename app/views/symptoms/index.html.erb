@@ -1,0 +1,10 @@
+<h3>Here's all the symptoms you've been experiencing:</h3>
+
+<ul class="list-group">
+  <%= @user_symptoms.each do |symptom| %>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <%= symptom.description %>
+      <span class="badge badge-primary badge-pill"><%= symptom.days.count %></span>
+    </li>
+  <% end %>
+</ul>

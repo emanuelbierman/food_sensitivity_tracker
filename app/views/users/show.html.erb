@@ -29,7 +29,7 @@
         <div class="form-group">
           <%= f.text_field :name, placeholder: "Food"  %>
           <%= f.text_field :serving, placeholder: "Servings" %>
-          <%= f.submit "Submit", class: "btn btn-primary" %>
+          <%= f.submit "Add New Food", class: "btn btn-primary" %>
         </div>
       <% end %>
     </li>
@@ -51,7 +51,13 @@
           <% end %>
         </tbody>
       </table>
-      <p>(form for a new symptom)</p>
+      <%= form_for(@symptom, url: user_symptoms_path(@user.id), method: :post) do |f| %>
+        <div class="form-group">
+          <%= f.text_field :description, placeholder: "Symptom"  %>
+          <%= f.text_field :frequency, placeholder: "Frequency" %>
+          <%= f.submit "Add New Symptom", class: "btn btn-primary" %>
+        </div>
+      <% end %>
     </li>
   </ul>
 </div>

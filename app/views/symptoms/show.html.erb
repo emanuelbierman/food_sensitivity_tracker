@@ -1,0 +1,27 @@
+<h3>Let's see what foods you were eating when you were experiencing <%= @symptom.description %></h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Foods</th>
+      <th scope="col">on the day:</th>
+      <th scope="col">next day:</th>
+      <th scope="col">2 days later:</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= @symptom_days.each do |day| %>
+    <tr>
+      <th scope="row"></th>
+      <td><%= day.day_of_week, day.month_day_year %>
+        <%= day.foods %>
+      </td>
+      <td><%= day.next_day.month_day_year, day.next_day.month_day_year %>
+        <%= day.previous_day_foods %>
+      </td>
+      <td><%= day.two_days_later.day_of_week, day.two_days_later.month_day_year %>
+        <%= day.two_days_ago_foods %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

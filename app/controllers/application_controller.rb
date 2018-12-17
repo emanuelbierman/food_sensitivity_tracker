@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   #   end
   # end
 
-  def current_day(user)
-    Day.find_or_create_by(month_day_year: Time.now.strftime("%m-%d-%y"), user_id: user.id)
+  def current_day(user_id)
+    Day.find_or_create_by(month_day_year: Time.now.strftime("%m-%d-%y"), user_id: user_id)
   end
 end
