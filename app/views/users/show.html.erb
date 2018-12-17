@@ -4,7 +4,7 @@
 
 <div class="card" style="width: 18rem;">
   <div class="card-header">
-    <%= current_day.day_of_week + ", " + current_day.month_day_year %>
+    <%= @day.day_of_week + ", " + @day.month_day_year %>
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          <% current_day.foods.each do |food| %>
+          <% @day.foods.each do |food| %>
           <tr>
             <th scope="row"><%= food.name %></th>
             <td><%= food.serving %></td>
@@ -25,7 +25,13 @@
           <% end %>
         </tbody>
       </table>
-      <p>(form for a new food)</p>
+      <%= form_for(@food, url: user_foods_path(@user.id), method: :post) do |f| %>
+        <div class="form-group">
+          <%= f.text_field :name, placeholder: "Food"  %>
+          <%= f.text_field :serving, placeholder: "Servings" %>
+          <%= f.submit "Submit", class: "btn btn-primary" %>
+        </div>
+      <% end %>
     </li>
     <li class="list-group-item">
       What did your body experience today?
@@ -37,7 +43,7 @@
           </tr>
         </thead>
         <tbody>
-          <% current_day.symptoms.each do |symptom| %>
+          <% @day.symptoms.each do |symptom| %>
           <tr>
             <th scope="row"><%= symptom.description %></th>
             <td><%= symptom.frequency %></td>

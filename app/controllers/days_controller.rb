@@ -93,7 +93,8 @@ class DaysController < ApplicationController
     def day_params
       params.require(:day).permit(
         :comments,
-        :month_day_year
+        :month_day_year,
+        :day_of_week
       )
     end
 end

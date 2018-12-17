@@ -19,6 +19,9 @@ class UsersController < ApplicationController
 
   def show
     if @user
+      session[:user_id] = @user.id
+      @food = Food.new
+      @day = current_day(@user)
       render 'show'
     else
       redirect_to root_path

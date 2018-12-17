@@ -1,0 +1,10 @@
+<h3>Here's all the foods you've eaten:</h3>
+
+<ul class="list-group">
+  <%= @user_foods.each do |food| %>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <%= food.name %>
+      <span class="badge badge-primary badge-pill"><%= food.days.count %></span>
+    </li>
+  <% end %>
+</ul>
