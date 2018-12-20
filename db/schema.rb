@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2018_11_30_190827) do
 
   create_table "days", force: :cascade do |t|
+    t.integer "date"
     t.string "month_day_year"
     t.string "day_of_week"
     t.string "comments"

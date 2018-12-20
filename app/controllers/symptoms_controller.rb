@@ -2,7 +2,7 @@ class SymptomsController < ApplicationController
 
   # set_food before_action @food = Food.find(params[:id])
   before_action :set_user
-  before_action :set_symptom, only: [:create, :show]
+  before_action :set_symptom, only: [:show]
 
   def index
     if @user
@@ -23,6 +23,7 @@ class SymptomsController < ApplicationController
 
   def create
     if @user
+      @symptom = Symptom.create(symptom_params)
       if @symptom.valid?
         @day = current_day(@user.id)
         @day.symptoms << @symptom
@@ -47,8 +48,15 @@ class SymptomsController < ApplicationController
   def show
     if @user
       if @symptom.valid?
+        @symptom_days = []
+        @symptom_previous_days_each = []
+        @symptom_two_days_ago_each = []
+        @symptom.days.each do |day|
+          @symptom_days << day if day
+          @symptom_previous_days_each << day.previous_day if day.previous_day
+          @symptom_two_days_ago_each << day.two_days_ago if day.two_days_ago
+        end
         session[:user_id] = @user.id
-        @symptom_days = @symptom.days
         render 'show'
       else
         @errors = @symptom.errors
@@ -75,6 +83,6 @@ class SymptomsController < ApplicationController
     end
 
     def set_symptom
-      @symptom = Symptom.create(symptom_params)
+      @symptom = Symptom.find(params[:id])
     end
 end
