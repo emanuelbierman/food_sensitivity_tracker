@@ -76,7 +76,6 @@ class FoodsController < ApplicationController
     end
 
     def food_params
-      binding.pry
       params.require(:food).permit(
         :name,
         :serving

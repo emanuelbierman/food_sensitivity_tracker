@@ -1,20 +1,20 @@
 <!-- style @food.name with an alert class -->
-<h3>Let's see what symptoms you were experiencing when you were eating <%= @food.name %></h3>
+<h3><%= @food.name.split.map(&:capitalize).join(' ') %></h3>
 
 <div class="container">
   <div class="row">
     <div class="col">
-      <%= @food_days.each do |day| %>
+      <% @food_days.each do |day| %>
         <div class="card" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title">
               <%= day.day_of_week + ", " + day.month_day_year %>
             </h5>
             <h6 class="card-subtitle mb-2 text-muted">
-              You ate <%= @food.name %> on this day
+              You ate <%= @food.name %> on this day. Your symptoms:
             </h6>
             <p class="card-text">
-              <%= day.symptoms.each do |symptom| %>
+              <% day.symptoms.each do |symptom| %>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
                     <%= link_to symptom.description, user_symptom_path(@user, symptom) %>
@@ -27,17 +27,17 @@
       <% end %>
     </div>
     <div class="col">
-      <%= @food_next_day_after_each.each do |day| %>
+      <% @food_next_day_after_each.each do |day| %>
         <div class="card" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title">
               <%= day.day_of_week + ", " + day.month_day_year %>
             </h5>
             <h6 class="card-subtitle mb-2 text-muted">
-              You ate <%= @food.name %> one day ago
+              You ate <%= @food.name %> one day ago. Your symptoms:
             </h6>
             <p class="card-text">
-              <%= day.symptoms.each do |symptom| %>
+              <% day.symptoms.each do |symptom| %>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
                     <%= link_to symptom.description, user_symptom_path(@user, symptom) %>
@@ -50,27 +50,27 @@
       <% end %>
     </div>
     <div class="col">
-      <%# <%= @food_two_days_after_each.each do |day| %> %>
+      <% @food_two_days_after_each.each do |day| %>
         <div class="card" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title">
-              <%# <%= day.day_of_week + ", " + day.month_day_year %> %>
+              <%= day.day_of_week + ", " + day.month_day_year %>
             </h5>
             <h6 class="card-subtitle mb-2 text-muted">
-              You ate <%= @food.name %> two days ago
+              You ate <%= @food.name %> two days ago. Your symptoms:
             </h6>
             <p class="card-text">
-              <%# <%= day.symptoms.each do |symptom| %> %>
+              <% day.symptoms.each do |symptom| %>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
-                    <%# <%= link_to symptom.description, user_symptom_path(@user, symptom) %> %>
+                    <%= link_to symptom.description, user_symptom_path(@user, symptom) %>
                   </li>
                 </ul>
-              <%# <% end %> %>
+              <% end %>
             </p>
           </div>
         </div>
-      <%# <% end %> %>
+      <% end %>
     </div>
   </div>
 </div>

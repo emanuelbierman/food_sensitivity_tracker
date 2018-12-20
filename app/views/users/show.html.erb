@@ -1,4 +1,4 @@
-<%# display/edit username, link to user_symptoms_path, link to user_food_path %>
+<!-- display/edit username, link to user_symptoms_path -->
 
 <h3>Welcome <%= @user.username %>!</h3>
 
@@ -19,8 +19,12 @@
         <tbody>
           <% @day.foods.each do |food| %>
           <tr>
-            <th scope="row"><%= link_to food.name, user_food_path(@user, food) %></th>
-            <td><%= food.serving %></td>
+            <th scope="row">
+              <%= link_to food.name, user_food_path(@user, food) %>
+            </th>
+            <td>
+              <%= food.serving %>
+            </td>
           </tr>
           <% end %>
         </tbody>
@@ -45,8 +49,12 @@
         <tbody>
           <% @day.symptoms.each do |symptom| %>
           <tr>
-            <th scope="row"><%= symptom.description %></th>
-            <td><%= symptom.frequency %></td>
+            <th scope="row">
+              <%= link_to symptom.description, user_symptom_path(@user, symptom) %>
+            </th>
+            <td>
+              <%= symptom.frequency %>
+            </td>
           </tr>
           <% end %>
         </tbody>
