@@ -22,7 +22,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       @food = Food.new
       @symptom = Symptom.new
-      @day = current_day(@user)
+      @day = current_day(@user.id)
       render 'show'
     else
       redirect_to root_path

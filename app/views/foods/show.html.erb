@@ -1,27 +1,66 @@
 <h3>Let's see what symptoms you were experiencing when you were eating <%= @food.name %></h3>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Symptoms</th>
-      <th scope="col">on the day:</th>
-      <th scope="col">next day:</th>
-      <th scope="col">2 days later:</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= @food_days.each do |day| %>
-    <tr>
-      <th scope="row"></th>
-      <td><%= day.day_of_week, day.month_day_year %>
-        <%= day.symptoms %>
-      </td>
-      <td><%= day.next_day.month_day_year, day.next_day.month_day_year %>
-        <%= day.next_day_symptoms %>
-      </td>
-      <td><%= day.two_days_later.day_of_week, day.two_days_later.month_day_year %>
-        <%= day.two_days_later_symptoms %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <%= @food_days.each do |day| %>
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">
+              <%= day.day_of_week + ", " + day.month_day_year %>
+            </h6>
+            <p class="card-text">
+              <%= day.symptoms.each do |symptom| %>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <%= symptom.description %>
+                  </li>
+                </ul>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col">
+      <%= @food_next_day_after_each.each do |day| %>
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">
+              <%= day.day_of_week + ", " + day.month_day_year %>
+            </h6>
+            <p class="card-text">
+              <%= day.symptoms.each do |symptom| %>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <%= symptom.description %>
+                  </li>
+                </ul>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col">
+      <%# <%= @food_two_days_after_each.each do |day| %> %>
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">
+              <%# <%= day.day_of_week + ", " + day.month_day_year %> %>
+            </h6>
+            <p class="card-text">
+              <%# <%= day.symptoms.each do |symptom| %> %>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <%# <%= symptom.description %> %>
+                  </li>
+                </ul>
+              <%# <% end %> %>
+            </p>
+          </div>
+        </div>
+      <%# <% end %> %>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,7 @@ class FoodsController < ApplicationController
 
   # set_food before_action @food = Food.find(params[:id])
   before_action :set_user
-  before_action :set_food, only: [:create, :show]
+  before_action :set_food, only: [:show]
 
   def index
     if @user
@@ -23,6 +23,7 @@ class FoodsController < ApplicationController
 
   def create
     if @user
+      @food = Food.create(food_params)
       if @food.valid?
         @day = current_day(@user.id)
         @day.foods << @food
@@ -47,8 +48,15 @@ class FoodsController < ApplicationController
   def show
     if @user
       if @food.valid?
+        @food_days = []
+        @food_next_day_after_each = []
+        @food_two_days_after_each = []
+        @food.days.each do |day|
+          @food_days << day if day
+          @food_next_day_after_each << day.next_day if day.next_day
+          @food_two_days_after_each << day.two_days_later if day.two_days_later
+        end
         session[:user_id] = @user.id
-        @food_days = @food.days
         render 'show'
       else
         @errors = @food.errors
@@ -68,6 +76,7 @@ class FoodsController < ApplicationController
     end
 
     def food_params
+      binding.pry
       params.require(:food).permit(
         :name,
         :serving
@@ -75,6 +84,6 @@ class FoodsController < ApplicationController
     end
 
     def set_food
-      @food = Food.create(food_params)
+      @food = Food.find(params[:id])
     end
 end

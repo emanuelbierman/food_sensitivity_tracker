@@ -20,19 +20,19 @@ class Day < ActiveRecord::Base
   end
 
   def previous_day
-    Day.find_by(id: (self.id - 1))
+    Day.find_or_create_by(id: (self.id - 1), user_id: self.user_id)
   end
 
   def two_days_ago
-    Day.find_by(id: (self.id - 2))
+    Day.find_by(id: (self.id - 2), user_id: self.user_id)
   end
 
   def next_day
-    Day.find_by(id: (self.id + 1))
+    Day.find_by(id: (self.id + 1), user_id: self.user_id)
   end
 
   def two_days_later
-    Day.find_by(id: (self.id + 2))
+    Day.find_by(id: (self.id + 2), user_id: self.user_id)
   end
 
   def previous_day_foods
