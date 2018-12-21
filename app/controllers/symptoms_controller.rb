@@ -48,14 +48,7 @@ class SymptomsController < ApplicationController
   def show
     if @user
       if @symptom.valid?
-        @symptom_days = []
-        @symptom_previous_days_each = []
-        @symptom_two_days_ago_each = []
-        @symptom.days.each do |day|
-          @symptom_days << day if day
-          @symptom_previous_days_each << day.previous_day if day.previous_day
-          @symptom_two_days_ago_each << day.two_days_ago if day.two_days_ago
-        end
+        @symptom_days = @symptom.days
         session[:user_id] = @user.id
         render 'show'
       else

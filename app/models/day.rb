@@ -147,6 +147,22 @@ class Day < ActiveRecord::Base
     self.two_days_later.symptoms
   end
 
+  def previous_day_day_of_week
+    self.previous_day.day_of_week
+  end
+
+  def previous_day_month_day_year
+    self.previous_day.month_day_year
+  end
+
+  def two_days_ago_day_of_week
+    self.two_days_ago.day_of_week
+  end
+
+  def two_days_ago_month_day_year
+    self.two_days_ago.month_day_year
+  end
+
   def next_day_day_of_week
     self.next_day.day_of_week
   end
