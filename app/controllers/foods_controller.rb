@@ -48,14 +48,15 @@ class FoodsController < ApplicationController
   def show
     if @user
       if @food.valid?
-        @food_days = []
-        @food_next_day_after_each = []
-        @food_two_days_after_each = []
-        @food.days.each do |day|
-          @food_days << day if day
-          @food_next_day_after_each << day.next_day if day.next_day
-          @food_two_days_after_each << day.two_days_later if day.two_days_later
-        end
+        @food_days = @food.days
+        # @each_day_after_food_days = []
+        # @each_two_days_after_food_days = []
+        # @food.days.each do |day|
+        #   @food_days << day if day
+        #   @each_day_after_food_days << day.next_day if day.next_day
+        #   @each_two_days_after_food_days << day.two_days_later if day.two_days_later
+        # end
+        # binding.pry
         session[:user_id] = @user.id
         render 'show'
       else
