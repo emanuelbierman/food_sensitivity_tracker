@@ -7,7 +7,7 @@ class FoodsController < ApplicationController
   def index
     if @user
       # all foods where food.day.user_id = @user.id, group by name, sort by food.days.count descending
-      @user_foods = @user.foods.all
+      @user_foods = @user.foods
       render 'index'
     elsif !@user.nil? && @user.errors.any?
       @errors = @user.errors.messages
@@ -53,10 +53,12 @@ class FoodsController < ApplicationController
         render 'show'
       else
         @errors = @food.errors
-        redirect_to "/users/#{@user.id}"
+        redirect_to user_path(@user)
       end
+    elsif !@user.nil? && @user.errors.any?
+      @errors = @user.errors.messages
+      redirect_to root_path(errors: @errors)
     else
-      # @errors = @user.errors
       redirect_to root_path
     end
   end

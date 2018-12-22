@@ -1,5 +1,4 @@
 <!-- display/edit username, link to user_symptoms_path -->
-
 <h3>Welcome <%= @user.username %>!</h3>
 
 <div class="card" style="width: 18rem;">
@@ -29,13 +28,18 @@
           <% end %>
         </tbody>
       </table>
-      <%= form_for(@food, url: user_foods_path(@user), method: :post) do |f| %>
-        <div class="form-group">
-          <%= f.text_field :name, placeholder: "Food"  %>
-          <%= f.text_field :serving, placeholder: "Servings" %>
-          <%= f.submit "Add New Food", class: "btn btn-primary" %>
-        </div>
-      <% end %>
+      <div class="form-group">
+        <%= form_for [@user, @day] do |f| %>
+          Add Existing Food: <%= f.collection_select(:food_ids, @user.foods, :id, :name) %>
+          <%= f.fields_for :foods, @day.foods.build do |foods_fields| %>
+            <br>Add New Food: <%= foods_fields.text_field :name, placeholder: "Name" %>
+            <br>
+            <%= foods_fields.number_field :serving, placeholder: "Servings?" %>
+          <% end %>
+          <%= f.text_field :comments, value: @day.comments, placeholder: "Comments for today?"  %>
+          <%= f.submit "Add", class: "btn btn-primary" %>
+        <% end %>
+      </div>
     </li>
     <li class="list-group-item">
       What did your body experience today?
@@ -61,9 +65,10 @@
       </table>
       <%= form_for(@symptom, url: user_symptoms_path(@user), method: :post) do |f| %>
         <div class="form-group">
-          <%= f.text_field :description, placeholder: "Symptom"  %>
-          <%= f.text_field :frequency, placeholder: "Frequency" %>
-          <%= f.submit "Add New Symptom", class: "btn btn-primary" %>
+          <%= f.text_field :description, placeholder: "Add New Symptom"  %>
+          <%= f.label :frequency %>
+          <%= f.number_field :frequency %>
+          <%= f.submit "Add", class: "btn btn-primary" %>
         </div>
       <% end %>
     </li>

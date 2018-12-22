@@ -3,6 +3,14 @@ class Day < ActiveRecord::Base
   has_and_belongs_to_many :foods
   has_and_belongs_to_many :symptoms
   validates_presence_of :user_id
+  accepts_nested_attributes_for :foods
+
+  def foods_attributes=(food_attributes)
+    food = Food.where(name: food_attributes[:name]).first_or_create do |food|
+      food.serving = food_attributes[:serving]
+    end
+    self.foods << food
+  end
 
   after_create do |day|
     day.set_month_day_year if day.month_day_year.nil?

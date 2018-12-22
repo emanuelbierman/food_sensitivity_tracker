@@ -1,7 +1,8 @@
 class DaysController < ApplicationController
 
-  # before_action :set_day, only: [:show, :create]
+  before_action :set_day, only: [:show, :update]
   before_action :set_user
+
 
   def index
     if @user
@@ -43,9 +44,46 @@ class DaysController < ApplicationController
 
   def show
     if @user
-      set_day
       if @day.valid?
         render 'show'
+      else
+        @errors = @day.errors
+        redirect_to root_path
+      end
+    else
+      redirect_to root_path
+    end
+  end
+
+  def update
+    if @user
+      if @day.valid?
+        @day.update(day_params)
+        if @day.valid?
+          # binding.pry
+          if params[:day][:food_ids]
+            set_food
+            if @food.valid?
+              redirect_to user_path(@user)
+            else
+              @errors = @food.errors
+              redirect_to root_path
+            end
+          elsif params[:day][:food_attributes]
+            set_food
+            if @food.valid?
+              redirect_to user_path(@user)
+            else
+              @errors = @food.errors
+              redirect_to root_path
+            end
+          else
+            redirect_to user_path(@user)
+          end
+        else
+          @errors = @day.errors
+          redirect_to root_path
+        end
       else
         @errors = @day.errors
         redirect_to root_path
@@ -62,39 +100,47 @@ class DaysController < ApplicationController
       end
     end
 
+    def set_day
+      if params[:id]
+        @day = Day.find(params[:id])
+      end
+    end
+
     def set_food
-      @food = Food.find_or_create_by(food_params)
+      @food = Food.find(params[:day][:food_ids])
       @day.foods << @food if @food
       @day.save
     	@food.save
     end
 
-    def set_symptoms
-      @symptom = Symptom.find_or_create_by(symptom_params)
-    	@day.symptoms << @symptom if @symptom
-    	@day.save
-    	@symptom.save
-    end
+    # def set_symptoms
+    #   @symptom = Symptom.find_or_create_by(symptom_params)
+    # 	@day.symptoms << @symptom if @symptom
+    # 	@day.save
+    # 	@symptom.save
+    # end
 
-    def food_params
-      params.require(:food).permit(
-        :name,
-        :serving
-      )
-    end
+    # def food_params
+    #   params.require(:food).permit(
+    #     :name,
+    #     :serving
+    #   )
+    # end
 
-    def symptom_params
-      params.require(:symptom).permit(
-        :description,
-        :frequency
-      )
-    end
+    # def symptom_params
+    #   params.require(:symptom).permit(
+    #     :description,
+    #     :frequency
+    #   )
+    # end
 
     def day_params
       params.require(:day).permit(
         :comments,
         :month_day_year,
-        :day_of_week
+        :day_of_week,
+        food_ids: [],
+        food_attributes: [:name, :serving]
       )
     end
 end
