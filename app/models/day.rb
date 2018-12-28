@@ -24,6 +24,12 @@ class Day < ActiveRecord::Base
     day.set_date if day.date.nil?
   end
 
+  after_find do |day|
+    day.set_month_day_year if day.month_day_year.nil?
+    day.set_day_of_week if day.day_of_week.nil?
+    day.set_date if day.date.nil?
+  end
+
   def set_date(d = self.created_at.strftime("%d"))
     if self.date.nil?
       self.date = d.to_i
@@ -58,84 +64,92 @@ class Day < ActiveRecord::Base
   @@thirty_one_days = [1, 3, 5, 7, 8, 10, 12]
   @@twenty_eight_days = [2]
 
-  def self.find_or_create_by_date(date, user_id)
-    @day = Day.where(date: date, user_id: user_id).first_or_create do |day|
-      day.set_month_day_year if day.month_day_year.nil?
-      day.set_day_of_week if day.day_of_week.nil?
-    end
-    @day.save
-    @day
-    # Day.find_or_create_by(date: (date), user_id: user_id) do |day|
-    #   day.set_month_day_year if day.month_day_year.nil?
-    #   day.set_day_of_week if day.day_of_week.nil?
-    # end
-  end
+  # def self.find_or_create_by_date(date, user_id)
+  #   @day = Day.where(date: date, user_id: user_id).first_or_create do |day|
+  #     day.set_month_day_year if day.month_day_year.nil?
+  #     day.set_day_of_week if day.day_of_week.nil?
+  #   end
+  #   @day.save
+  #   @day
+  #   # Day.find_or_create_by(date: (date), user_id: user_id) do |day|
+  #   #   day.set_month_day_year if day.month_day_year.nil?
+  #   #   day.set_day_of_week if day.day_of_week.nil?
+  #   # end
+  # end
 
   def previous_day
     if self.date > 1
-      Day.find_or_create_by_date((self.date - 1), self.user_id)
+      Day.find_or_create_by(date: (self.date - 1), user_id: self.user_id)
     elsif self.date = 1 && @@thirty_days.include?(self.previous_m)
-      Day.find_or_create_by_date(30, self.user_id)
+      Day.find_or_create_by(date: 30, user_id: self.user_id)
     elsif self.date = 1 && @@thirty_one_days.include?(self.previous_m)
-      Day.find_or_create_by_date(31, self.user_id)
+      Day.find_or_create_by(date: 31, user_id: self.user_id)
     elsif self.date = 1
-      Day.find_or_create_by_date(28, self.user_id)
+      Day.find_or_create_by(date: 28, user_id: self.user_id)
+    else
+      "There was an error loading this day."
     end
   end
 
   def two_days_ago
     if self.date > 2
-      Day.find_or_create_by_date((self.date - 2), self.user_id)
+      Day.find_or_create_by(date: (self.date - 2), user_id: self.user_id)
     elsif self.date = 2 && @@thirty_days.include?(self.previous_m)
-      Day.find_or_create_by_date(29, self.user_id)
+      Day.find_or_create_by(date: (29), user_id: self.user_id)
     elsif self.date = 2 && @@thirty_one_days.include?(self.previous_m)
-      Day.find_or_create_by_date(30, self.user_id)
+      Day.find_or_create_by(date: (30), user_id: self.user_id)
     elsif self.date = 1 && @@thirty_days.include?(self.previous_m)
-      Day.find_or_create_by_date(30, self.user_id)
+      Day.find_or_create_by(date: (30), user_id: self.user_id)
     elsif self.date = 1 && @@thirty_one_days.include?(self.previous_m)
-      Day.find_or_create_by_date(31, self.user_id)
+      Day.find_or_create_by(date: (31), user_id: self.user_id)
     elsif self.date = 1
-      Day.find_or_create_by_date(28, self.user_id)
+      Day.find_or_create_by(date: (28), user_id: self.user_id)
+    else
+      "There was an error loading this day."
     end
   end
 
   def next_day
     if self.date < 28
-      Day.find_or_create_by_date((self.date + 1), self.user_id)
+      Day.find_or_create_by(date: (self.date - 1), user_id: self.user_id)
     elsif self.date = 28 && @@twenty_eight_days.include?(self.m)
-      Day.find_or_create_by_date(30, self.user_id)
+      Day.find_or_create_by(date: (30), user_id: self.user_id)
     elsif self.date = 28
-      Day.find_or_create_by_date(29, self.user_id)
+      Day.find_or_create_by(date: (29), user_id: self.user_id)
     elsif self.date = 29
-      Day.find_or_create_by_date(30, self.user_id)
+      Day.find_or_create_by(date: (30), user_id: self.user_id)
     elsif self.date = 30 && @@thirty_days.include?(self.m)
-      Day.find_or_create_by_date(1, self.user_id)
+      Day.find_or_create_by(date: (1), user_id: self.user_id)
     elsif self.date = 30 && @@thirty_one_days.include?(self.m)
-      Day.find_or_create_by_date(31, self.user_id)
+      Day.find_or_create_by(date: (31), user_id: self.user_id)
     elsif self.date = 31 && @@thirty_one_days.include?(self.m)
-      Day.find_or_create_by_date(1, self.user_id)
+      Day.find_or_create_by(date: (1), user_id: self.user_id)
+    else
+      "There was an error loading this day."
     end
   end
 
   def two_days_later
     if self.date < 27
-      Day.find_or_create_by_date((self.date + 2), self.user_id)
+      Day.find_or_create_by(date: (self.date + 2), user_id: self.user_id)
     elsif self.date = 27 && @@twenty_eight_days.include?(self.m)
-      Day.find_or_create_by_date(1, self.user_id)
+      Day.find_or_create_by(date: (1), user_id: self.user_id)
     elsif self.date = 27
-      Day.find_or_create_by_date(29, self.user_id)
+      Day.find_or_create_by(date: (29), user_id: self.user_id)
     elsif self.date = 28 && @@twenty_eight_days.include?(self.m)
-      Day.find_or_create_by_date(30, self.user_id)
+      Day.find_or_create_by(date: (30), user_id: self.user_id)
     elsif self.date = 28
-      Day.find_or_create_by_date(29, self.user_id)
+      Day.find_or_create_by(date: (29), user_id: self.user_id)
     elsif self.date = 29
-      Day.find_or_create_by_date(30, self.user_id)
+      Day.find_or_create_by(date: (30), user_id: self.user_id)
     elsif self.date = 30 && @@thirty_days.include?(self.m)
-      Day.find_or_create_by_date(1, self.user_id)
+      Day.find_or_create_by(date: (1), user_id: self.user_id)
     elsif self.date = 30 && @@thirty_one_days.include?(self.m)
-      Day.find_or_create_by_date(31, self.user_id)
+      Day.find_or_create_by(date: (31), user_id: self.user_id)
     elsif self.date = 31 && @@thirty_one_days.include?(self.m)
-      Day.find_or_create_by_date(1, self.user_id)
+      Day.find_or_create_by(date: (1), user_id: self.user_id)
+    else
+      "There was an error loading this day."
     end
   end
 
