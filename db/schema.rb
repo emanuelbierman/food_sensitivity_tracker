@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2018_11_30_190827) do
   create_table "foods", force: :cascade do |t|
     t.string "name"
     t.integer "serving"
+    t.integer "days_count"
   end
 
   create_table "symptoms", force: :cascade do |t|

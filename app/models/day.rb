@@ -3,6 +3,7 @@ class Day < ActiveRecord::Base
   has_and_belongs_to_many :foods
   has_and_belongs_to_many :symptoms
   validates_presence_of :user_id
+  validates_uniqueness_of :date, scope: :user_id
   accepts_nested_attributes_for :foods
 
   def foods_attributes=(food_attributes)
@@ -12,44 +13,42 @@ class Day < ActiveRecord::Base
     self.foods << food
   end
 
-  after_create do |day|
-    day.set_month_day_year if day.month_day_year.nil?
-    day.set_day_of_week if day.day_of_week.nil?
-    day.set_date if day.date.nil?
-  end
-
   after_save do |day|
+    day.set_date if day.date.nil?
     day.set_month_day_year if day.month_day_year.nil?
     day.set_day_of_week if day.day_of_week.nil?
-    day.set_date if day.date.nil?
   end
 
   after_find do |day|
+    day.set_date if day.date.nil?
     day.set_month_day_year if day.month_day_year.nil?
     day.set_day_of_week if day.day_of_week.nil?
+  end
+
+  after_commit do |day|
     day.set_date if day.date.nil?
+    day.set_month_day_year if day.month_day_year.nil?
+    day.set_day_of_week if day.day_of_week.nil?
   end
 
   def set_date(d = self.created_at.strftime("%d"))
-    if self.date.nil?
-      self.date = d.to_i
-    end
+    self.date = d.to_i
   end
 
   def set_month_day_year(m_d_y = self.created_at.strftime("%m-%d-%y"))
-    if self.month_day_year.nil?
-      self.month_day_year = m_d_y
-    end
+    self.month_day_year = m_d_y
   end
 
   def set_day_of_week(d_o_w = self.created_at.strftime("%A"))
-    if self.day_of_week.nil?
-      self.day_of_week = d_o_w
-    end
+    self.day_of_week = d_o_w
   end
 
+  @@thirty_days = [4, 6, 9, 11]
+  @@thirty_one_days = [1, 3, 5, 7, 8, 10, 12]
+  @@twenty_eight_days = [2]
+
   def m
-    self.month_day_year.split("-")[0].to_i
+    self.created_at.strftime("%m").to_i
   end
 
   def previous_m
@@ -59,23 +58,6 @@ class Day < ActiveRecord::Base
       12
     end
   end
-
-  @@thirty_days = [4, 6, 9, 11]
-  @@thirty_one_days = [1, 3, 5, 7, 8, 10, 12]
-  @@twenty_eight_days = [2]
-
-  # def self.find_or_create_by_date(date, user_id)
-  #   @day = Day.where(date: date, user_id: user_id).first_or_create do |day|
-  #     day.set_month_day_year if day.month_day_year.nil?
-  #     day.set_day_of_week if day.day_of_week.nil?
-  #   end
-  #   @day.save
-  #   @day
-  #   # Day.find_or_create_by(date: (date), user_id: user_id) do |day|
-  #   #   day.set_month_day_year if day.month_day_year.nil?
-  #   #   day.set_day_of_week if day.day_of_week.nil?
-  #   # end
-  # end
 
   def previous_day
     if self.date > 1

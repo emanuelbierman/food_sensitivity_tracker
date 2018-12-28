@@ -1,13 +1,13 @@
 class FoodsController < ApplicationController
 
-  # set_food before_action @food = Food.find(params[:id])
   before_action :set_user
   before_action :set_food, only: [:show]
 
   def index
     if @user
       # all foods where food.day.user_id = @user.id, group by name, sort by food.days.count descending
-      @user_foods = @user.foods
+      foods = @user.foods
+      @user_foods = foods.order(days_count)
       render 'index'
     elsif !@user.nil? && @user.errors.any?
       @errors = @user.errors.messages

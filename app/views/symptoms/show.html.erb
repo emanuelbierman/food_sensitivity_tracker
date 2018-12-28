@@ -9,7 +9,7 @@
         </h5>
         <div class="card-body">
           <h6 class="card-subtitle mb-2 text-muted">
-            <%= day.day_of_week %>,  <%= day.month_day_year %>
+            Date: <%= day.date %>
           </h6>
           <p class="card-text">
             <% day.foods.each do |food| %>
@@ -28,7 +28,7 @@
         </h5>
         <div class="card-body">
           <h6 class="card-subtitle mb-2 text-muted">
-            <%= day.previous_day_day_of_week %>, <%= day.previous_day_month_day_year %>
+            Date: <%= day.previous_day.date %>
           </h6>
           <p class="card-text">
             <% day.previous_day_foods.each do |food| %>
@@ -47,7 +47,7 @@
         </h5>
         <div class="card-body">
           <h6 class="card-subtitle mb-2 text-muted">
-            <%= day.two_days_ago_day_of_week %>, <%= day.two_days_ago_month_day_year %>
+            Date: <%= day.two_days_ago.date %>
           </h6>
           <p class="card-text">
             <% day.two_days_ago_foods.each do |food| %>
