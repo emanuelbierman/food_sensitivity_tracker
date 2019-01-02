@@ -9,4 +9,8 @@ class Food < ActiveRecord::Base
     self.days_count = self.days.count
   end
 
+  def self.food_count
+    group(:name).order(:id, days_count: :desc)
+  end
+
 end

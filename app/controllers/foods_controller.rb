@@ -5,7 +5,7 @@ class FoodsController < ApplicationController
 
   def index
     if @user
-      @user_foods = @user.foods.group(:name).order(:id, days_count: :desc)
+      @user_foods = @user.foods.food_count
       render 'index'
     elsif !@user.nil? && @user.errors.any?
       @errors = @user.errors.messages
