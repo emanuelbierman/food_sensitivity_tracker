@@ -30,11 +30,11 @@
       </table>
       <div class="form-group">
         <%= form_for [@user, @day] do |f| %>
-          Add Existing Food: <%= f.collection_select(:food_ids, @user.foods, :id, :name) %>
+          <%= f.collection_select(:food_ids, @user.foods, :id, :name, {include_blank: 'Existing food?'}) %>
           <%= f.fields_for :foods, @day.foods.build do |foods_fields| %>
-            <br>Add New Food: <%= foods_fields.text_field :name, placeholder: "Name" %>
+            <br>Add New Food: <%= foods_fields.text_field :name, placeholder: "New food?" %>
             <br>
-            <%= foods_fields.number_field :serving, placeholder: "Servings?" %>
+            <%= foods_fields.number_field :serving, placeholder: "Servings" %>
           <% end %>
           <%= f.text_field :comments, value: @day.comments, placeholder: "Comments for today?"  %>
           <%= f.submit "Add", class: "btn btn-primary" %>

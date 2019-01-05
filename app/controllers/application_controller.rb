@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_day(user_id)
-    month_day_year = Time.now.strftime("%m-%d-%y"))
-    Day.find_or_create_by(month_day_year: new_day.month_day_year, user_id: user_id)
+    month_day_year = Time.now.strftime("%m-%d-%y")
+    Day.find_or_create_by(month_day_year: month_day_year, user_id: user_id)
   end
 end
