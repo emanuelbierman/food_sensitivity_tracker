@@ -1,6 +1,7 @@
 class DaysController < ApplicationController
 
   before_action :set_day, only: [:show, :update]
+  before_action :set_food, only: [:update]
   before_action :set_user
 
 
@@ -60,9 +61,7 @@ class DaysController < ApplicationController
       if @day.valid?
         @day.update(day_params)
         if @day.valid?
-          # binding.pry
           if params[:day][:food_ids]
-            set_food
             if @food.valid?
               redirect_to user_path(@user)
             else
@@ -70,7 +69,6 @@ class DaysController < ApplicationController
               redirect_to root_path
             end
           elsif params[:day][:food_attributes]
-            set_food
             if @food.valid?
               redirect_to user_path(@user)
             else
@@ -102,15 +100,23 @@ class DaysController < ApplicationController
 
     def set_day
       if params[:id]
-        @day = Day.find(params[:id])
+        @day = Day.find_by(id: params[:id])
       end
     end
 
     def set_food
-      @food = Food.find(params[:day][:food_ids])
-      @day.foods << @food if @food
-      @day.save
-    	@food.save
+      serving = params[:day][:foods_attributes]["0"]["serving"].to_i
+      if !params[:day][:food_ids].blank?
+        existing_food = Food.find_by(id: params[:day][:food_ids])
+        @food = Food.create(name: existing_food.name, serving: serving)
+      elsif !params[:day][:foods_attributes]["0"]["name"].blank?
+        @food = Food.create(name: params[:day][:foods_attributes]["0"]["name"], serving: serving)
+      end
+      if @food.valid?
+        @day.foods << @food
+        @day.save
+        @food.save
+      end
     end
 
     # def set_symptoms
