@@ -22,44 +22,48 @@
           </p>
         </div>
       </div>
-      <div class="card" style="width: 18rem;">
-        <h5 class="card-title">
-          On the next day, you experienced:
-        </h5>
-        <div class="card-body">
-          <h6 class="card-subtitle mb-2 text-muted">
-            Date: <%= day.next_day.date %>
-          </h6>
-          <p class="card-text">
-            <% day.next_day_symptoms.each do |symptom| %>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <%= link_to symptom.description, user_symptom_path(@user, symptom) %>
-                </li>
-              </ul>
-            <% end %>
-          </p>
+      <% if day.next_day %>
+        <div class="card" style="width: 18rem;">
+          <h5 class="card-title">
+            On the next day, you experienced:
+          </h5>
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">
+              Date: <%= day.next_day.date %>
+            </h6>
+            <p class="card-text">
+              <% day.next_day_symptoms.each do |symptom| %>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <%= link_to symptom.description, user_symptom_path(@user, symptom) %>
+                  </li>
+                </ul>
+              <% end %>
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="card" style="width: 18rem;">
-        <h5 class="card-title">
-          Two days later, you experienced:
-        </h5>
-        <div class="card-body">
-          <h6 class="card-subtitle mb-2 text-muted">
-            Date: <%= day.two_days_later.date %>
-          </h6>
-          <p class="card-text">
-            <% day.two_days_later_symptoms.each do |symptom| %>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <%= link_to symptom.description, user_symptom_path(@user, symptom) %>
-                </li>
-              </ul>
-            <% end %>
-          </p>
+      <% end %>
+      <% if day.two_days_later %>
+        <div class="card" style="width: 18rem;">
+          <h5 class="card-title">
+            Two days later, you experienced:
+          </h5>
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">
+              Date: <%= day.two_days_later.date %>
+            </h6>
+            <p class="card-text">
+              <% day.two_days_later_symptoms.each do |symptom| %>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <%= link_to symptom.description, user_symptom_path(@user, symptom) %>
+                  </li>
+                </ul>
+              <% end %>
+            </p>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
   <% end %>
 </div>

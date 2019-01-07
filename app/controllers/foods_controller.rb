@@ -45,7 +45,7 @@ class FoodsController < ApplicationController
 
   def show
     if @user
-      if @food.valid?
+      if @food
         @food_days = @food.days
         session[:user_id] = @user.id
         render 'show'
@@ -76,6 +76,6 @@ class FoodsController < ApplicationController
     end
 
     def set_food
-      @food = Food.find(params[:id])
+      @food = Food.find_by(id: params[:id])
     end
 end

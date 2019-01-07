@@ -86,7 +86,7 @@ class Day < ActiveRecord::Base
 
   def next_day
     if self.date < 28
-      Day.find_by(date: (self.date - 1), user_id: self.user_id)
+      Day.find_by(date: (self.date + 1), user_id: self.user_id)
     elsif self.date = 28 && @@twenty_eight_days.include?(self.m)
       Day.find_by(date: (30), user_id: self.user_id)
     elsif self.date = 28
@@ -128,17 +128,17 @@ class Day < ActiveRecord::Base
     self.previous_day.foods
   end
 
-  # def two_days_ago_foods
-  #   self.two_days_ago.foods
-  # end
+  def two_days_ago_foods
+    self.two_days_ago.foods
+  end
 
   def next_day_symptoms
     self.next_day.symptoms
   end
 
-  # def two_days_later_symptoms
-  #   self.two_days_later.symptoms
-  # end
+  def two_days_later_symptoms
+    self.two_days_later.symptoms
+  end
 
   def previous_day_day_of_week
     self.previous_day.day_of_week
@@ -148,13 +148,13 @@ class Day < ActiveRecord::Base
     self.previous_day.month_day_year
   end
 
-  # def two_days_ago_day_of_week
-  #   self.two_days_ago.day_of_week
-  # end
+  def two_days_ago_day_of_week
+    self.two_days_ago.day_of_week
+  end
 
-  # def two_days_ago_month_day_year
-  #   self.two_days_ago.month_day_year
-  # end
+  def two_days_ago_month_day_year
+    self.two_days_ago.month_day_year
+  end
 
   def next_day_day_of_week
     self.next_day.day_of_week
@@ -164,11 +164,11 @@ class Day < ActiveRecord::Base
     self.next_day.month_day_year
   end
 
-  # def two_days_later_day_of_week
-  #   self.two_days_later.day_of_week
-  # end
+  def two_days_later_day_of_week
+    self.two_days_later.day_of_week
+  end
 
-  # def two_days_later_month_day_year
-  #   self.two_days_later.month_day_year
-  # end
+  def two_days_later_month_day_year
+    self.two_days_later.month_day_year
+  end
 end
