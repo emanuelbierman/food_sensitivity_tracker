@@ -67,11 +67,8 @@ class FoodsController < ApplicationController
       if @food
         @messages << "Food deleted."
         @food.destroy
-      elsif @symptom
-        @messages << "Symptom deleted."
-        @symptom.destroy
+        redirect_to root_path(messages: @messages)
       end
-      redirect_to root_path(messages: @messages)
     else
       redirect_to root_path
     end

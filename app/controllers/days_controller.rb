@@ -78,6 +78,7 @@ class DaysController < ApplicationController
       elsif !@day.nil? && @day.errors.any?
         @day.errors.messages.each {|message| @messages << message}
         redirect_to root_path(messages: @messages)
+      end
     else
       redirect_to root_path
     end
@@ -147,27 +148,6 @@ class DaysController < ApplicationController
         end
       end
     end
-
-    # def set_symptoms
-    #   @symptom = Symptom.find_or_create_by(symptom_params)
-    # 	@day.symptoms << @symptom if @symptom
-    # 	@day.save
-    # 	@symptom.save
-    # end
-
-    # def food_params
-    #   params.require(:food).permit(
-    #     :name,
-    #     :serving
-    #   )
-    # end
-
-    # def symptom_params
-    #   params.require(:symptom).permit(
-    #     :description,
-    #     :frequency
-    #   )
-    # end
 
     def day_params
       params.require(:day).permit(

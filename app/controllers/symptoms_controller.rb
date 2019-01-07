@@ -1,8 +1,8 @@
 class SymptomsController < ApplicationController
 
-  # set_food before_action @food = Food.find(params[:id])
   before_action :set_user
-  before_action :set_symptom, only: [:show]
+  before_action :set_messages
+  before_action :set_symptom, only: [:show, :destroy]
 
   def index
     if @user
@@ -61,7 +61,23 @@ class SymptomsController < ApplicationController
     end
   end
 
+  def destroy
+    if @user
+      if @symptom
+        @messages << "Symptom deleted."
+        @symptom.destroy
+        redirect_to root_path(messages: @messages)
+      end
+    else
+      redirect_to root_path
+    end
+  end
+
   private
+    def set_messages
+      @messages = []
+    end
+
     def set_user
       if session[:user_id]
         @user = User.find_by(id: session[:user_id])
@@ -76,6 +92,6 @@ class SymptomsController < ApplicationController
     end
 
     def set_symptom
-      @symptom = Symptom.find(params[:id])
+      @symptom = Symptom.find_by(id: params[:id])
     end
 end
