@@ -22,7 +22,7 @@
               <%= link_to food.name, user_food_path(@user, food) %>
             </th>
             <td>
-              <%= food.serving %>
+              <%= food.serving %>  /<%= link_to("delete", "/users/#{@user.id}/foods/#{food.id}", method: :delete) %>
             </td>
           </tr>
           <% end %>
@@ -30,14 +30,14 @@
       </table>
       <div class="form-group">
         <%= form_for [@user, @day] do |f| %>
-          <%= f.collection_select(:food_ids, @user.foods, :id, :name, {include_blank: 'Existing food?', selected: 'Existing food?'}) %>
+          <%= f.collection_select(:food_ids, @user.foods, :id, :name, {include_blank: 'Choose a food', selected: 'Choose a food'}) %>
           <%= f.fields_for :foods, @day.foods.build do |foods_fields| %>
-            <br><%= foods_fields.text_field :name, placeholder: "New food?" %>
+            <br><%= foods_fields.text_field :name, placeholder: "Or create a new food" %>
             <br>
-            <%= foods_fields.number_field :serving, placeholder: "Servings" %>
+            <%= foods_fields.number_field :serving, placeholder: "Servings (required)" %>
           <% end %>
           <%= f.text_field :comments, value: @day.comments, placeholder: "Comments for today?"  %>
-          <%= f.submit "Add", class: "btn btn-primary" %>
+          <%= f.submit "Add food", class: "btn btn-primary" %>
         <% end %>
       </div>
     </li>
@@ -57,7 +57,7 @@
               <%= link_to symptom.description, user_symptom_path(@user, symptom) %>
             </th>
             <td>
-              <%= symptom.frequency %>
+              <%= symptom.frequency %>  /<%= link_to("delete", "/users/#{@user.id}/symptoms/#{symptom.id}", method: :delete) %>
             </td>
           </tr>
           <% end %>
@@ -65,14 +65,14 @@
       </table>
       <div class="form-group">
         <%= form_for [@user, @day] do |f| %>
-          <%= f.collection_select(:symptom_ids, @user.symptoms, :id, :description, {include_blank: 'Existing symptom?', selected: 'Existing symptom?'}) %>
+          <%= f.collection_select(:symptom_ids, @user.symptoms, :id, :description, {include_blank: 'Choose a symptom', selected: 'Choose a symptom'}) %>
           <%= f.fields_for :symptoms, @day.symptoms.build do |symptoms_fields| %>
-            <br><%= symptoms_fields.text_field :description, placeholder: "New symptom?" %>
+            <br><%= symptoms_fields.text_field :description, placeholder: "Or create new symptom" %>
             <br>
-            <%= symptoms_fields.number_field :frequency, placeholder: "Frequency" %>
+            <%= symptoms_fields.number_field :frequency, placeholder: "Frequency (required)" %>
           <% end %>
           <%= f.text_field :comments, value: @day.comments, placeholder: "Comments for today?"  %>
-          <%= f.submit "Add", class: "btn btn-primary" %>
+          <%= f.submit "Add Symptom", class: "btn btn-primary" %>
         <% end %>
       </div>
     </li>

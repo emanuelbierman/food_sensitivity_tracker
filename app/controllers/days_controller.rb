@@ -1,17 +1,20 @@
 class DaysController < ApplicationController
 
+  before_action :set_user
+  before_action :set_messages
   before_action :set_day, only: [:show, :update]
   before_action :set_food, only: [:update]
   before_action :set_symptom, only: [:update]
-  before_action :set_user
 
 
   def index
     if @user
       render 'index'
     elsif !@user.nil? && @user.errors.any?
-      @errors = @user.errors.messages
-      redirect_to root_path(errors: @errors)
+      @user.errors.messages.each do |message|
+        @messages << message
+      end
+      redirect_to root_path(messages: @messages)
     else
       redirect_to root_path
     end
@@ -46,11 +49,13 @@ class DaysController < ApplicationController
 
   def show
     if @user
-      if @day.valid?
+      if @day
         render 'show'
-      else
-        @errors = @day.errors
-        redirect_to root_path
+      elsif !@day.nil? && @day.errors.any?
+        @day.errors.messages.each do |message|
+          @messages << message
+        end
+        redirect_to root_path(messages: @messages)
       end
     else
       redirect_to root_path
@@ -63,21 +68,26 @@ class DaysController < ApplicationController
         @day.update(day_params)
         if @food || @symptom
           redirect_to user_path(@user)
-        elsif @errors
-          redirect_to root_path
-        else
-          redirect_to user_path(@user)
+        elsif !@food.nil? && @food.errors.any?
+          @food.errors.messages.each {|message| @messages << message}
+          redirect_to root_path(messages: @messages)
+        elsif !@symptom.nil? && @symptom.errors.any?
+          @symptom.errors.messages.each {|message| @messages << message}
+          redirect_to root_path(messages: @messages)
         end
-      else
-        @errors = @day.errors if @day.errors
-        redirect_to root_path
-      end
+      elsif !@day.nil? && @day.errors.any?
+        @day.errors.messages.each {|message| @messages << message}
+        redirect_to root_path(messages: @messages)
     else
       redirect_to root_path
     end
   end
 
   private
+    def set_messages
+      @messages = []
+    end
+
     def set_user
       if session[:user_id]
         @user = User.find_by(id: session[:user_id])
@@ -108,7 +118,9 @@ class DaysController < ApplicationController
           @day.foods << @food
           @day.save
           @food.save
-          @errors = @food.errors if @food.errors
+          @message = "Your food has been created and added."
+        elsif !@food.nil? && @food.errors.any?
+          @message = @food.errors.messages
         end
       end
     end

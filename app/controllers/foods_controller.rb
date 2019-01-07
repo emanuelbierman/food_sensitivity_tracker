@@ -1,7 +1,8 @@
 class FoodsController < ApplicationController
 
   before_action :set_user
-  before_action :set_food, only: [:show]
+  before_action :set_messages
+  before_action :set_food, only: [:show, :destroy]
 
   def index
     if @user
@@ -61,7 +62,26 @@ class FoodsController < ApplicationController
     end
   end
 
+  def destroy
+    if @user
+      if @food
+        @messages << "Food deleted."
+        @food.destroy
+      elsif @symptom
+        @messages << "Symptom deleted."
+        @symptom.destroy
+      end
+      redirect_to root_path(messages: @messages)
+    else
+      redirect_to root_path
+    end
+  end
+
   private
+    def set_messages
+      @messages = []
+    end
+
     def set_user
       if session[:user_id]
         @user = User.find_by(id: session[:user_id])
