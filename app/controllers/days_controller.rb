@@ -2,6 +2,7 @@ class DaysController < ApplicationController
 
   before_action :set_day, only: [:show, :update]
   before_action :set_food, only: [:update]
+  before_action :set_symptom, only: [:update]
   before_action :set_user
 
 
@@ -58,32 +59,17 @@ class DaysController < ApplicationController
 
   def update
     if @user
-      if @day.valid?
+      if @day
         @day.update(day_params)
-        if @day.valid?
-          if params[:day][:food_ids]
-            if @food.valid?
-              redirect_to user_path(@user)
-            else
-              @errors = @food.errors
-              redirect_to root_path
-            end
-          elsif params[:day][:food_attributes]
-            if @food.valid?
-              redirect_to user_path(@user)
-            else
-              @errors = @food.errors
-              redirect_to root_path
-            end
-          else
-            redirect_to user_path(@user)
-          end
-        else
-          @errors = @day.errors
+        if @food || @symptom
+          redirect_to user_path(@user)
+        elsif @errors
           redirect_to root_path
+        else
+          redirect_to user_path(@user)
         end
       else
-        @errors = @day.errors
+        @errors = @day.errors if @day.errors
         redirect_to root_path
       end
     else
@@ -105,17 +91,48 @@ class DaysController < ApplicationController
     end
 
     def set_food
-      serving = params[:day][:foods_attributes]["0"]["serving"].to_i
-      if !params[:day][:food_ids].blank?
-        existing_food = Food.find_by(id: params[:day][:food_ids])
-        @food = Food.create(name: existing_food.name, serving: serving)
-      elsif !params[:day][:foods_attributes]["0"]["name"].blank?
-        @food = Food.create(name: params[:day][:foods_attributes]["0"]["name"], serving: serving)
+      if params[:day][:food_ids]
+        food_id_is_present = !params[:day][:food_ids].blank?
+        food_name_is_present = !params[:day][:foods_attributes]["0"][:name].blank?
+        serving_is_present = !params[:day][:foods_attributes]["0"][:serving].blank?
+        if food_id_is_present && serving_is_present
+          serving = params[:day][:foods_attributes]["0"][:serving].to_i
+          existing_food = Food.find_by(id: params[:day][:food_ids])
+          @food = Food.create(name: existing_food.name, serving: serving)
+        elsif food_name_is_present && serving_is_present
+          serving = params[:day][:foods_attributes]["0"][:serving].to_i
+          name = params[:day][:foods_attributes]["0"][:name]
+          @food = Food.create(name: name, serving: serving)
+        end
+        if @food
+          @day.foods << @food
+          @day.save
+          @food.save
+          @errors = @food.errors if @food.errors
+        end
       end
-      if @food.valid?
-        @day.foods << @food
-        @day.save
-        @food.save
+    end
+
+    def set_symptom
+      if params[:day][:symptom_ids]
+        symptom_id_is_present = !params[:day][:symptom_ids].blank?
+        symptom_desc_is_present = !params[:day][:symptoms_attributes]["0"][:description].blank?
+        frequency_is_present = !params[:day][:symptoms_attributes]["0"][:frequency].blank?
+        if symptom_id_is_present && frequency_is_present
+          frequency = params[:day][:symptoms_attributes]["0"][:frequency].to_i
+          existing_symptom = Symptom.find_by(id: params[:day][:symptom_ids])
+          @symptom = Symptom.create(description: existing_symptom.description, frequency: frequency)
+        elsif symptom_desc_is_present && frequency_is_present
+          frequency = params[:day][:symptoms_attributes]["0"][:frequency].to_i
+          description = params[:day][:symptoms_attributes]["0"][:description]
+          @symptom = Symptom.create(description: description, frequency: frequency)
+        end
+        if @symptom
+          @day.symptoms << @symptom
+          @day.save
+          @symptom.save
+          @errors = @symptom.errors if @symptom.errors
+        end
       end
     end
 
@@ -146,7 +163,9 @@ class DaysController < ApplicationController
         :month_day_year,
         :day_of_week,
         food_ids: [],
-        food_attributes: [:name, :serving]
+        food_attributes: [:name, :serving],
+        symptom_ids: [],
+        symptom_attributes: [:description, :frequency]
       )
     end
 end
