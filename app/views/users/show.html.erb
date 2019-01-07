@@ -63,14 +63,18 @@
           <% end %>
         </tbody>
       </table>
-      <%= form_for(@symptom, url: user_symptoms_path(@user), method: :post) do |f| %>
-        <div class="form-group">
-          <%= f.text_field :description, placeholder: "Add New Symptom"  %>
-          <%= f.label :frequency %>
-          <%= f.number_field :frequency %>
+      <div class="form-group">
+        <%= form_for [@user, @day] do |f| %>
+          <%= f.collection_select(:symptom_ids, @user.symptoms, :id, :description, {include_blank: 'Existing symptom?', selected: 'Existing symptom?'}) %>
+          <%= f.fields_for :symptoms, @day.symptoms.build do |symptoms_fields| %>
+            <br><%= symptoms_fields.text_field :description, placeholder: "New symptom?" %>
+            <br>
+            <%= symptoms_fields.number_field :frequency, placeholder: "Frequency" %>
+          <% end %>
+          <%= f.text_field :comments, value: @day.comments, placeholder: "Comments for today?"  %>
           <%= f.submit "Add", class: "btn btn-primary" %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </li>
   </ul>
 </div>
