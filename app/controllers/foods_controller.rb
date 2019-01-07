@@ -6,7 +6,7 @@ class FoodsController < ApplicationController
 
   def index
     if @user
-      @user_foods = @user.foods.food_count
+      @user_foods = Food.foods_by_days_count(@user.id)
       render 'index'
     elsif !@user.nil? && @user.errors.any?
       @errors = @user.errors.messages
