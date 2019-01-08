@@ -1,39 +1,57 @@
-<h3>Welcome <%= @user.username %>!</h3>
+<h3>Here is a list of your days:</h3>
 
-<div class="card" style="width: 18rem;">
-  <div class="card-header">
-    <%= current_day.day_of_week + ", " + current_day.month_day_year %>
+<% @days.each do |day| %>
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">
+      <%= day.day_of_week + ", " + day.month_day_year %>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        What did you put in your body today?
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Food</th>
+              <th scope="col">Serving</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% day.foods.each do |food| %>
+            <tr>
+              <th scope="row">
+                <%= link_to food.name, user_food_path(@user, food) %>
+              </th>
+              <td>
+                <%= food.serving %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </li>
+      <li class="list-group-item">
+        What did your body experience today?
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Symptom</th>
+              <th scope="col">Frequency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% day.symptoms.each do |symptom| %>
+            <tr>
+              <th scope="row">
+                <%= link_to symptom.description, user_symptom_path(@user, symptom) %>
+              </th>
+              <td>
+                <%= symptom.frequency %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </li>
+    </ul>
   </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      What did you put in your body today?
-      <%= current_day.symptoms %>
-      (form for a new symptom)
-    </li>
-    <li class="list-group-item">
-      What did your body experience today?
-      <%= current_day.foods %>
-      (form for a new food)</li>
-    <li class="list-group-item">Vestibulum at eros</li>
-  </ul>
-</div>
-
-<!-- <div class="card" style="width: 18rem;"> -->
-  <%# <% @user.days.each do |day| %> %>
-    <!-- <div class="card-header"> -->
-      <%# <%= day.day_of_week + ", " + day.month_day_year %> %>
-    <!-- </div> -->
-    <!-- <ul class="list-group list-group-flush"> -->
-      <!-- <li class="list-group-item"> -->
-        <!-- What did you put in your body? -->
-        <%# <%= day.symptoms %> %>
-        <!-- (form for a new symptom) -->
-      <!-- </li> -->
-      <!-- <li class="list-group-item"> -->
-        <!-- What did your body experience? -->
-        <%# <%= day.foods %> %>
-        <%# (form for a new food)</li> %>
-      <!-- <li class="list-group-item">Vestibulum at eros</li> -->
-    <!-- </ul> -->
-  <%# <% end %> %>
-<!-- </div> -->
+<% end %>

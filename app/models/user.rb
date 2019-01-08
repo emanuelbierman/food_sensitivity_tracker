@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
     self.symptoms.group(:description).distinct
   end
 
+  def days_descending
+    self.days.order(date: :desc)
+  end
+
 end

@@ -22,7 +22,7 @@
       <%= link_to "Home", root_path, class: 'navbar-brand' %>
       <% if logged_in? %>
         <%= link_to "Your Foods", user_foods_path(current_user), class: 'navbar-brand' %>
-        <%= link_to "Your Symptoms", user_symptoms_path(current_user), class: 'navbar-brand' %>
+        <%= link_to "Your Days", user_days_path(current_user), class: 'navbar-brand' %>
         <%= link_to "Sign Out", signout_path, class: 'navbar-brand' %>
       <% end %>
     </div>

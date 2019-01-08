@@ -1,6 +1,5 @@
-<!-- style @symptom.description with an alert class -->
 <div class="container">
-  <h3><%= @symptom.description.upcase %></h3>
+  <h3><%= @symptom.description.split.map(&:capitalize).join(' ') %></h3>
   <% @symptom_days.each do |day| %>
     <div class="row">
       <div class="card" style="width: 18rem;">
