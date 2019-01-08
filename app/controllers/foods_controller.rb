@@ -1,7 +1,6 @@
 class FoodsController < ApplicationController
 
   before_action :set_user
-  before_action :set_messages
   before_action :set_food, only: [:show, :destroy]
 
   def index
@@ -16,10 +15,6 @@ class FoodsController < ApplicationController
     end
   end
 
-  # def new
-  #   @food = Food.new
-  # end
-
   def create
     if @user
       @food = Food.create(food_params)
@@ -28,8 +23,7 @@ class FoodsController < ApplicationController
         @day.foods << @food
         @day.save
         session[:user_id] = @user.id
-        @errors = "Your food has been added."
-        redirect_to user_path(@user)
+        redirect_to user_path @user, notice: "Your food has been added."
       elsif !@food.nil? && @food.errors.any?
         @errors = @food.errors.messages
         redirect_to user_path(@user, errors: @errors)
@@ -51,12 +45,8 @@ class FoodsController < ApplicationController
         session[:user_id] = @user.id
         render 'show'
       else
-        @errors = @food.errors
         redirect_to user_path(@user)
       end
-    elsif !@user.nil? && @user.errors.any?
-      @errors = @user.errors.messages
-      redirect_to root_path(errors: @errors)
     else
       redirect_to root_path
     end
@@ -65,9 +55,8 @@ class FoodsController < ApplicationController
   def destroy
     if @user
       if @food
-        @messages << "Food deleted."
         @food.destroy
-        redirect_to root_path(messages: @messages)
+        redirect_to root_path, notice: "Food deleted."
       end
     else
       redirect_to root_path
@@ -75,10 +64,6 @@ class FoodsController < ApplicationController
   end
 
   private
-    def set_messages
-      @messages = []
-    end
-
     def set_user
       if session[:user_id]
         @user = User.find_by(id: session[:user_id])

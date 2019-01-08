@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   get "/signout", to: "sessions#destroy"
   resources :users do
     resources :days, only: [:index, :show, :update]
-    resources :foods
-    resources :symptoms
+    resources :foods, only: [:index, :create, :show, :destroy]
+    resources :symptoms, only: [:create, :show, :destroy]
   end
 
   # only admins can delete foods and symptoms

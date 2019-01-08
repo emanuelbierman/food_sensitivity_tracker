@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
   before_action :set_user, only: [:show]
-  before_action :set_messages
 
   def new
     @user = User.new
@@ -30,10 +29,6 @@ class UsersController < ApplicationController
   end
 
   private
-    def set_messages
-      @messages = []
-    end
-
     def user_params
       params.require(:user).permit(
         :username,

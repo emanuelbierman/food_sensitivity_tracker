@@ -1,25 +1,7 @@
 class SymptomsController < ApplicationController
 
   before_action :set_user
-  before_action :set_messages
   before_action :set_symptom, only: [:show, :destroy]
-
-  def index
-    if @user
-      # all symptoms where symptom.day.user_id = @user.id, group by name, sort by symptom.days.count descending
-      @user_symptoms = @user.symptoms.all
-      render 'index'
-    elsif !@user.nil? && @user.errors.any?
-      @errors = @user.errors.messages
-      redirect_to root_path(errors: @errors)
-    else
-      redirect_to root_path
-    end
-  end
-
-  # def new
-  #   @symptom = Symptom.new
-  # end
 
   def create
     if @user
@@ -29,8 +11,7 @@ class SymptomsController < ApplicationController
         @day.symptoms << @symptom
         @day.save
         session[:user_id] = @user.id
-        @errors = "Your symptom has been added."
-        redirect_to user_path(@user)
+        redirect_to user_path @user, notice: "Your symptom has been added."
       elsif !@symptom.nil? && @symptom.errors.any?
         @errors = @symptom.errors.messages
         redirect_to user_path(@user, errors: @errors)
@@ -47,16 +28,14 @@ class SymptomsController < ApplicationController
 
   def show
     if @user
-      if @symptom.valid?
+      if @symptom
         @symptom_days = @symptom.days
         session[:user_id] = @user.id
         render 'show'
       else
-        @errors = @symptom.errors
-        redirect_to "/users/#{@user.id}"
+        redirect_to user_path(@user)
       end
     else
-      # @errors = @user.errors
       redirect_to root_path
     end
   end
@@ -64,9 +43,8 @@ class SymptomsController < ApplicationController
   def destroy
     if @user
       if @symptom
-        @messages << "Symptom deleted."
         @symptom.destroy
-        redirect_to root_path(messages: @messages)
+        redirect_to root_path, notice: "Symptom deleted."
       end
     else
       redirect_to root_path
@@ -74,10 +52,6 @@ class SymptomsController < ApplicationController
   end
 
   private
-    def set_messages
-      @messages = []
-    end
-
     def set_user
       if session[:user_id]
         @user = User.find_by(id: session[:user_id])
