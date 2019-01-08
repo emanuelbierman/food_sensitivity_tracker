@@ -30,7 +30,7 @@
       </table>
       <div class="form-group">
         <%= form_for [@user, @day] do |f| %>
-          <%= f.collection_select(:food_ids, @user.foods, :id, :name, {include_blank: 'Choose a food', selected: 'Choose a food'}) %>
+          <%= f.collection_select(:food_ids, @user.food_names, :id, :name, {include_blank: 'Choose a food', selected: 'Choose a food'}) %>
           <%= f.fields_for :foods, @day.foods.build do |foods_fields| %>
             <br><%= foods_fields.text_field :name, placeholder: "Or create a new food" %>
             <br>
@@ -65,7 +65,7 @@
       </table>
       <div class="form-group">
         <%= form_for [@user, @day] do |f| %>
-          <%= f.collection_select(:symptom_ids, @user.symptoms, :id, :description, {include_blank: 'Choose a symptom', selected: 'Choose a symptom'}) %>
+          <%= f.collection_select(:symptom_ids, @user.symptom_descriptions, :id, :description, {include_blank: 'Choose a symptom', selected: 'Choose a symptom'}) %>
           <%= f.fields_for :symptoms, @day.symptoms.build do |symptoms_fields| %>
             <br><%= symptoms_fields.text_field :description, placeholder: "Or create new symptom" %>
             <br>
