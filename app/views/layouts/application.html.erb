@@ -26,9 +26,20 @@
         <%= link_to "Sign Out", signout_path, class: 'navbar-brand' %>
       <% end %>
     </div>
-    <% if @errors %>
-      <p class="alert alert-primary" role="alert"><%= @errors %></p>
-    <% end %>
+
+    <div>
+      <% if flash[:notice] %>
+        <p class="alert alert-primary" role="alert">
+          <%= flash[:notice] %>
+        </p>
+      <% end %>
+      <% if flash[:warning] %>
+        <p class="alert alert-warning" role="alert">
+          <%= flash[:warning] %>
+        </p>
+      <% end %>
+    </div>
+
     <%= yield %>
   </body>
 </html>

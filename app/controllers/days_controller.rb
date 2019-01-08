@@ -8,55 +8,27 @@ class DaysController < ApplicationController
 
 
   def index
-    if @user
+    if @user.valid?
       render 'index'
-    elsif !@user.nil? && @user.errors.any?
-      @user.errors.messages.each do |message|
-        @messages << message
-      end
+    elsif @user.errors.any?
+      @user.errors.messages.each {|message| @messages << message}
       redirect_to root_path(messages: @messages)
     else
       redirect_to root_path
     end
   end
 
-  # def new
-  #   if @user
-  #     render 'new'
-  #   else
-  #     redirect_to "signup"
-  #   end
-  # end
-
-  # def create
-  #   if @user
-  #     @day = Day.new(day_params)
-  #     # @day.set_month_day_year
-  #     unless abc_day.nil?
-  #       @day = abc_day
-  #     end
-  #     if @day.valid?
-  #       set_food
-  #       set_symptoms
-  #       redirect_to "/"
-  #     else
-  #       redirect_to "users/#{@user.id}/days/new"
-  #     end
-  #   else
-  #     redirect_to "signup"
-  #   end
-  # end
-
   def show
-    if @user
-      if @day
+    if @user.valid?
+      if @day.valid?
         render 'show'
-      elsif !@day.nil? && @day.errors.any?
-        @day.errors.messages.each do |message|
-          @messages << message
-        end
+      elsif @day.errors.any?
+        @day.errors.messages.each {|message| @messages << message}
         redirect_to root_path(messages: @messages)
       end
+    elsif @user.errors.any?
+      @user.errors.messages.each {|message| @messages << message}
+      redirect_to root_path(messages: @messages)
     else
       redirect_to root_path
     end
