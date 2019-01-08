@@ -1,34 +1,13 @@
 class DaysController < ApplicationController
 
   before_action :set_user
-  before_action :set_messages
   before_action :set_day, only: [:show, :update]
   before_action :set_food, only: [:update]
   before_action :set_symptom, only: [:update]
 
-
   def index
-    if @user.valid?
+    if @user
       render 'index'
-    elsif @user.errors.any?
-      @user.errors.messages.each {|message| @messages << message}
-      redirect_to root_path(messages: @messages)
-    else
-      redirect_to root_path
-    end
-  end
-
-  def show
-    if @user.valid?
-      if @day.valid?
-        render 'show'
-      elsif @day.errors.any?
-        @day.errors.messages.each {|message| @messages << message}
-        redirect_to root_path(messages: @messages)
-      end
-    elsif @user.errors.any?
-      @user.errors.messages.each {|message| @messages << message}
-      redirect_to root_path(messages: @messages)
     else
       redirect_to root_path
     end
@@ -38,29 +17,44 @@ class DaysController < ApplicationController
     if @user
       if @day
         @day.update(day_params)
-        if @food || @symptom
-          redirect_to user_path(@user)
-        elsif !@food.nil? && @food.errors.any?
-          @food.errors.messages.each {|message| @messages << message}
-          redirect_to root_path(messages: @messages)
-        elsif !@symptom.nil? && @symptom.errors.any?
-          @symptom.errors.messages.each {|message| @messages << message}
-          redirect_to root_path(messages: @messages)
+        if @day.valid?
+          if @food
+            if @food.valid?
+              @day.foods << @food
+              @day.save
+              @food.save
+              redirect_to user_path(@user), notice: "Your food has been added."
+            elsif @food.errors.any?
+              messages = []
+              @food.errors.messages.each {|message| messages << message}
+              redirect_to root_path, alert: messages
+            end
+          elsif @symptom
+            if @symptom.valid?
+              @day.symptoms << @symptom
+              @day.save
+              @symptom.save
+              redirect_to user_path(@user), notice: "Your symptom has been added."
+            elsif @symptom.errors.any?
+              messages = []
+              @symptom.errors.messages.each {|message| messages << message}
+              redirect_to root_path, alert: messages
+            end
+          end
+        elsif @day.errors.any?
+          messages = []
+          @day.errors.messages.each {|message| messages << message}
+          redirect_to root_path, alert: messages
         end
-      elsif !@day.nil? && @day.errors.any?
-        @day.errors.messages.each {|message| @messages << message}
-        redirect_to root_path(messages: @messages)
+      else
+        redirect_to user_path(@user), alert: "Please try again."
       end
     else
-      redirect_to root_path
+      redirect_to root_path, alert: "Please try logging in again."
     end
   end
 
   private
-    def set_messages
-      @messages = []
-    end
-
     def set_user
       if session[:user_id]
         @user = User.find_by(id: session[:user_id])
@@ -87,14 +81,6 @@ class DaysController < ApplicationController
           name = params[:day][:foods_attributes]["0"][:name]
           @food = Food.create(name: name, serving: serving)
         end
-        if @food
-          @day.foods << @food
-          @day.save
-          @food.save
-          @message = "Your food has been created and added."
-        elsif !@food.nil? && @food.errors.any?
-          @message = @food.errors.messages
-        end
       end
     end
 
@@ -111,12 +97,6 @@ class DaysController < ApplicationController
           frequency = params[:day][:symptoms_attributes]["0"][:frequency].to_i
           description = params[:day][:symptoms_attributes]["0"][:description]
           @symptom = Symptom.create(description: description, frequency: frequency)
-        end
-        if @symptom
-          @day.symptoms << @symptom
-          @day.save
-          @symptom.save
-          @errors = @symptom.errors if @symptom.errors
         end
       end
     end

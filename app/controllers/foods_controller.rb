@@ -15,29 +15,6 @@ class FoodsController < ApplicationController
     end
   end
 
-  def create
-    if @user
-      @food = Food.create(food_params)
-      if @food.valid?
-        @day = current_day(@user.id)
-        @day.foods << @food
-        @day.save
-        session[:user_id] = @user.id
-        redirect_to user_path @user, notice: "Your food has been added."
-      elsif !@food.nil? && @food.errors.any?
-        @errors = @food.errors.messages
-        redirect_to user_path(@user, errors: @errors)
-      else
-        redirect_to root_path
-      end
-    elsif !@user.nil? && @user.errors.any?
-      @errors = @user.errors.messages
-      redirect_to root_path(errors: @errors)
-    else
-      redirect_to root_path
-    end
-  end
-
   def show
     if @user
       if @food
@@ -56,7 +33,7 @@ class FoodsController < ApplicationController
     if @user
       if @food
         @food.destroy
-        redirect_to root_path, notice: "Food deleted."
+        redirect_to root_path, notice: "Your food has been deleted."
       end
     else
       redirect_to root_path
