@@ -41,6 +41,8 @@ class DaysController < ApplicationController
               @symptom.errors.messages.each {|message| messages << message}
               redirect_to root_path, alert: messages
             end
+          else
+            redirect_to user_path(@user), alert: @alert
           end
         elsif @day.errors.any?
           messages = []
@@ -69,35 +71,43 @@ class DaysController < ApplicationController
     end
 
     def set_food
-      if params[:day][:food_ids]
-        food_id_is_present = !params[:day][:food_ids].blank?
-        food_name_is_present = !params[:day][:foods_attributes]["0"][:name].blank?
-        serving_is_present = !params[:day][:foods_attributes]["0"][:serving].blank?
-        if food_id_is_present && serving_is_present
-          serving = params[:day][:foods_attributes]["0"][:serving].to_i
-          existing_food = Food.find_by(id: params[:day][:food_ids])
-          @food = Food.create(name: existing_food.name, serving: serving)
-        elsif food_name_is_present && serving_is_present
-          serving = params[:day][:foods_attributes]["0"][:serving].to_i
-          name = params[:day][:foods_attributes]["0"][:name]
-          @food = Food.create(name: name, serving: serving)
+      unless params[:day][:foods_attributes].nil?
+        if params[:day][:foods_attributes].has_key?("0")
+          food_id_is_present = !params[:day][:food_ids].blank?
+          food_name_is_present = !params[:day][:foods_attributes]["0"][:name].blank?
+          serving_is_present = !params[:day][:foods_attributes]["0"][:serving].blank?
+          if food_id_is_present && serving_is_present
+            serving = params[:day][:foods_attributes]["0"][:serving].to_i
+            existing_food = Food.find_by(id: params[:day][:food_ids])
+            @food = Food.create(name: existing_food.name, serving: serving)
+          elsif food_name_is_present && serving_is_present
+            serving = params[:day][:foods_attributes]["0"][:serving].to_i
+            name = params[:day][:foods_attributes]["0"][:name]
+            @food = Food.create(name: name, serving: serving)
+          end
+        else
+          @alert = "You must enter a serving."
         end
       end
     end
 
     def set_symptom
-      if params[:day][:symptom_ids]
-        symptom_id_is_present = !params[:day][:symptom_ids].blank?
-        symptom_desc_is_present = !params[:day][:symptoms_attributes]["0"][:description].blank?
-        frequency_is_present = !params[:day][:symptoms_attributes]["0"][:frequency].blank?
-        if symptom_id_is_present && frequency_is_present
-          frequency = params[:day][:symptoms_attributes]["0"][:frequency].to_i
-          existing_symptom = Symptom.find_by(id: params[:day][:symptom_ids])
-          @symptom = Symptom.create(description: existing_symptom.description, frequency: frequency)
-        elsif symptom_desc_is_present && frequency_is_present
-          frequency = params[:day][:symptoms_attributes]["0"][:frequency].to_i
-          description = params[:day][:symptoms_attributes]["0"][:description]
-          @symptom = Symptom.create(description: description, frequency: frequency)
+      unless params[:day][:symptoms_attributes].nil?
+        if params[:day][:symptoms_attributes].has_key?("0")
+          symptom_id_is_present = !params[:day][:symptom_ids].blank?
+          symptom_desc_is_present = !params[:day][:symptoms_attributes]["0"][:description].blank?
+          frequency_is_present = !params[:day][:symptoms_attributes]["0"][:frequency].blank?
+          if symptom_id_is_present && frequency_is_present
+            frequency = params[:day][:symptoms_attributes]["0"][:frequency].to_i
+            existing_symptom = Symptom.find_by(id: params[:day][:symptom_ids])
+            @symptom = Symptom.create(description: existing_symptom.description, frequency: frequency)
+          elsif symptom_desc_is_present && frequency_is_present
+            frequency = params[:day][:symptoms_attributes]["0"][:frequency].to_i
+            description = params[:day][:symptoms_attributes]["0"][:description]
+            @symptom = Symptom.create(description: description, frequency: frequency)
+          end
+        else
+          @alert = "You must enter a serving."
         end
       end
     end

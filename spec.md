@@ -33,11 +33,12 @@ Specs:
   URL: /users/:user_id/foods/:food_id
   URL: /users/:user_id/symptoms/:symptom_id
 - [x] Include nested resource "new" form (URL e.g. recipes/1/ingredients/new)
-
+  URL: "/"
 - [x] Include form display of validation errors (form URL e.g. /recipes/new)
+  URL: "/"
 
 Confirm:
-- [ ] The application is pretty DRY
-- [ ] Limited logic in controllers
-- [ ] Views use helper methods if appropriate
-- [ ] Views use partials if appropriate
+- [X] The application is pretty DRY
+- [X] Limited logic in controllers
+- [X] Views use helper methods if appropriate
+- [X] Views use partials if appropriate

@@ -3,7 +3,7 @@ class Day < ActiveRecord::Base
   has_and_belongs_to_many :foods
   has_and_belongs_to_many :symptoms
   validates_presence_of :user_id, :month_day_year
-  # validates_uniqueness_of :month_day_year, scope: :user_id
+  # validates_uniqueness_of :date, scope: :user_id
   accepts_nested_attributes_for :foods, :symptoms
 
   def foods_attributes=(food_attributes)
