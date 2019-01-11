@@ -10,47 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_30_190827) do
-
-  create_table "days", force: :cascade do |t|
-    t.integer "date"
-    t.integer "month"
-    t.string "month_day_year"
-    t.string "day_of_week"
-    t.string "comments"
-    t.datetime "created_at"
-    t.integer "user_id"
-    t.index ["user_id"], name: "index_days_on_user_id"
-  end
-
-  create_table "days_foods", force: :cascade do |t|
-    t.integer "day_id"
-    t.integer "food_id"
-    t.index ["day_id"], name: "index_days_foods_on_day_id"
-    t.index ["food_id"], name: "index_days_foods_on_food_id"
-  end
-
-  create_table "days_symptoms", force: :cascade do |t|
-    t.integer "day_id"
-    t.integer "symptom_id"
-    t.index ["day_id"], name: "index_days_symptoms_on_day_id"
-    t.index ["symptom_id"], name: "index_days_symptoms_on_symptom_id"
-  end
-
-  create_table "foods", force: :cascade do |t|
-    t.string "name"
-    t.integer "serving"
-    t.integer "days_count"
-  end
-
-  create_table "symptoms", force: :cascade do |t|
-    t.string "description"
-    t.integer "frequency"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "password_digest"
-  end
+ActiveRecord::Schema.define(version: 0) do
 
 end

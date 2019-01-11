@@ -71,7 +71,7 @@ class DaysController < ApplicationController
     end
 
     def set_food
-      unless params[:day][:foods_attributes].nil?
+      if !params[:day][:foods_attributes].nil?
         if params[:day][:foods_attributes].has_key?("0")
           food_id_is_present = !params[:day][:food_ids].blank?
           food_name_is_present = !params[:day][:foods_attributes]["0"][:name].blank?
@@ -92,7 +92,7 @@ class DaysController < ApplicationController
     end
 
     def set_symptom
-      unless params[:day][:symptoms_attributes].nil?
+      if !params[:day][:symptoms_attributes].nil?
         if params[:day][:symptoms_attributes].has_key?("0")
           symptom_id_is_present = !params[:day][:symptom_ids].blank?
           symptom_desc_is_present = !params[:day][:symptoms_attributes]["0"][:description].blank?
@@ -106,9 +106,9 @@ class DaysController < ApplicationController
             description = params[:day][:symptoms_attributes]["0"][:description]
             @symptom = Symptom.create(description: description, frequency: frequency)
           end
-        else
-          @alert = "You must enter a serving."
         end
+      else
+        @alert = "You must enter a serving."
       end
     end
 

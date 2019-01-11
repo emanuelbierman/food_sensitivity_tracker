@@ -7,9 +7,6 @@ class FoodsController < ApplicationController
     if @user
       @user_foods = Food.foods_by_days_count(@user.id)
       render 'index'
-    elsif !@user.nil? && @user.errors.any?
-      @errors = @user.errors.messages
-      redirect_to root_path(errors: @errors)
     else
       redirect_to root_path
     end
