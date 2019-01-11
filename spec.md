@@ -10,12 +10,11 @@ Specs:
   Users have many Foods through Days
   Users have many Symptoms through Days
 - [x] Include at least one many-to-many relationship (x has_many y through z, y has_many x through z; e.g. Recipe has_many Items through Ingredients, Item has_many Recipes through Ingredients)
-  Foods habtm Days
-  Symptoms habtm Days
   Foods have many Symptoms through Days
   Symptoms have many Foods through Days
 - [x] The "through" part of the has_many through includes at least one user submittable attribute, that is to say, some attribute other than its foreign keys that can be submitted by the app's user (attribute_name e.g. ingredients.quantity)
-  Day.comments
+  DaysFood.comments
+  DaysSymptom.comments
 - [x] Include reasonable validations for simple model objects (list of model objects with validations e.g. User, Recipe, Ingredient, Item)
   Day, User, Food, Symptom
 - [x] Include a class level ActiveRecord scope method (model object & class method name and URL to see the working feature:  

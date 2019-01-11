@@ -1,8 +1,10 @@
 class Day < ActiveRecord::Base
   belongs_to :user
-  has_and_belongs_to_many :foods
-  has_and_belongs_to_many :symptoms
-  validates_presence_of :user_id, :month_day_year
+  has_many :days_food
+  has_many :foods, through: :days_food
+  has_many :days_symptom
+  has_many :symptoms, through: :days_food
+  validates_presence_of :user_id, :date
   # validates_uniqueness_of :date, scope: :user_id
   accepts_nested_attributes_for :foods, :symptoms
 

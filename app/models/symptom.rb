@@ -1,6 +1,7 @@
 class Symptom < ActiveRecord::Base
-  has_and_belongs_to_many :days
-  has_many :foods, through: :days
+  belongs_to :days_symptom
+  belongs_to :day, through: :days_symptom
+  has_many :foods, through: :day
   validates_presence_of :description, :frequency
 
   # def nested_array_of_each_previous_days_foods
