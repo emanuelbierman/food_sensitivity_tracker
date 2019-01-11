@@ -7,11 +7,11 @@ Specs:
 - [x] Include at least one belongs_to relationship (x belongs_to y; e.g. Post belongs_to User)
   Day belongs_to User
 - [x] Include at least two has_many through relationships (x has_many y through z; e.g. Recipe has_many Items through Ingredients)
-  Users have many Foods through Days
-  Users have many Symptoms through Days
+  User has_many Foods through Days
+  User has_many Symptoms through Days
 - [x] Include at least one many-to-many relationship (x has_many y through z, y has_many x through z; e.g. Recipe has_many Items through Ingredients, Item has_many Recipes through Ingredients)
-  Foods have many Symptoms through Days
-  Symptoms have many Foods through Days
+  Food has_many Symptoms through DaysFood
+  Symptom has_many Foods through DaysSymptom
 - [x] The "through" part of the has_many through includes at least one user submittable attribute, that is to say, some attribute other than its foreign keys that can be submitted by the app's user (attribute_name e.g. ingredients.quantity)
   DaysFood.comments
   DaysSymptom.comments

@@ -1,6 +1,6 @@
 class Symptom < ActiveRecord::Base
-  belongs_to :days_symptom
-  belongs_to :day, through: :days_symptom
+  has_many :days_symptom
+  has_many :days, through: :days_symptom, source: :day
   has_many :foods, through: :day
   validates_presence_of :description, :frequency
 

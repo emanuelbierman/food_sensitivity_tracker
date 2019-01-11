@@ -3,7 +3,7 @@ class Day < ActiveRecord::Base
   has_many :days_food
   has_many :foods, through: :days_food
   has_many :days_symptom
-  has_many :symptoms, through: :days_food
+  has_many :symptoms, through: :days_symptom
   validates_presence_of :user_id, :date
   # validates_uniqueness_of :date, scope: :user_id
   accepts_nested_attributes_for :foods, :symptoms
