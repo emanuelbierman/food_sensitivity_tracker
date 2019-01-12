@@ -36,7 +36,7 @@
             <br>
             <%= foods_fields.number_field :serving, placeholder: "Servings (required)" %>
           <% end %>
-          <%= f.text_field :comments, value: @days_food.comments, placeholder: "Comments for today?"  %>
+          <%= f.text_field :comments, value: @days_food.comments, placeholder: "Comments?"  %>
           <%= f.submit "Add food", class: "btn btn-primary" %>
         <% end %>
       </div>
@@ -64,14 +64,14 @@
         </tbody>
       </table>
       <div class="form-group">
-        <%= form_for [@user, @day] do |f| %>
+        <%= form_for [@user, @days_symptom] do |f| %>
           <%= f.collection_select(:symptom_ids, @user.symptom_descriptions, :id, :description, {include_blank: 'Choose a symptom', selected: 'Choose a symptom'}) %>
           <%= f.fields_for :symptoms, @day.symptoms.build do |symptoms_fields| %>
             <br><%= symptoms_fields.text_field :description, placeholder: "Or create new symptom" %>
             <br>
             <%= symptoms_fields.number_field :frequency, placeholder: "Frequency (required)" %>
           <% end %>
-          <%= f.text_field :comments, value: @day.comments, placeholder: "Comments for today?"  %>
+          <%= f.text_field :comments, value: @days_symptom.comments, placeholder: "Comments for today?"  %>
           <%= f.submit "Add Symptom", class: "btn btn-primary" %>
         <% end %>
       </div>
