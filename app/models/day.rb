@@ -6,14 +6,7 @@ class Day < ActiveRecord::Base
   has_many :symptoms, through: :days_symptom
   validates_presence_of :user_id, :date
   # validates_uniqueness_of :date, scope: :user_id
-  accepts_nested_attributes_for :foods, :symptoms
-
-  def foods_attributes=(food_attributes)
-    food = Food.where(name: food_attributes[:name]).first_or_create do |food|
-      food.serving = food_attributes[:serving]
-    end
-    self.foods << food
-  end
+  accepts_nested_attributes_for :symptoms
 
   def symptoms_attributes=(symptom_attributes)
     symptom = Symptom.where(name: symptom_attributes[:description]).first_or_create do |food|

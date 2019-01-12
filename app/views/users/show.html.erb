@@ -30,7 +30,7 @@
       </table>
       <div class="form-group">
         <%= form_for [@user, @days_food] do |f| %>
-          <%= f.collection_select(:food_ids, @user.food_names, :id, :name, {include_blank: 'Choose a food', selected: 'Choose a food'}) %>
+          <%= f.collection_select(:food_id, @user.food_names, :id, :name, {include_blank: 'Choose a food', selected: 'Choose a food'}) %>
           <%= f.fields_for :foods, @day.foods.build do |foods_fields| %>
             <br><%= foods_fields.text_field :name, placeholder: "Or create a new food" %>
             <br>

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-
-  before_action :set_user, only: [:show]
+  skip_before_action :require_login, only: [:create]
+  skip_before_action :require_user
 
   def create
     @user = User.create(user_params)
@@ -15,21 +15,17 @@ class UsersController < ApplicationController
   end
 
   def show
-    if @user
-      if @user == current_user
-        session[:user_id] = @user.id
-        @food = Food.new
-        @days_food = DaysFood.new
-        @symptom = Symptom.new
-        @days_symptom = DaysSymptom.new
-        @day = current_day(@user.id)
-        render "show"
-      else
-        redirect_to root_path, alert: "You must be signed in as #{current_user.username} to access this page"
-      end
+    @user = User.find_by(id: params[:id])
+    if @user == current_user
+      session[:user_id] = @user.id
+      @food = Food.new
+      @days_food = DaysFood.new
+      @symptom = Symptom.new
+      @days_symptom = DaysSymptom.new
+      @day = current_day(@user.id)
+      render "show"
     else
-      flash[:alert] = "You must be signed in to access this page"
-      render "sessions/new"
+      redirect_to user_path(current_user), alert: "You do not have permission to access this page."
     end
   end
 

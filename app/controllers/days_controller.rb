@@ -111,10 +111,6 @@ class DaysController < ApplicationController
         :comments,
         :month_day_year,
         :day_of_week,
-        food_ids: [],
-        food_attributes: [:name, :serving],
-        symptom_ids: [],
-        symptom_attributes: [:description, :frequency]
       )
     end
 end
