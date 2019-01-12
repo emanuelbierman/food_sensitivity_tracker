@@ -18,13 +18,19 @@ class UsersController < ApplicationController
 
   def show
     if @user
-      session[:user_id] = @user.id
-      @food = Food.new
-      @symptom = Symptom.new
-      @day = current_day(@user.id)
-      render 'show'
+      if @user == current_user
+        session[:user_id] = @user.id
+        @food = Food.new
+        @symptom = Symptom.new
+        @day = current_day(@user.id)
+        render "show"
+      else
+        flash[:alert] = "You must be signed in as #{current_user.username} to access this page"
+        render "sessions/new"
+      end
     else
-      redirect_to root_path
+      flash[:alert] = "You must be signed in to access this page"
+      render "sessions/new"
     end
   end
 
@@ -37,8 +43,6 @@ class UsersController < ApplicationController
     end
 
     def set_user
-      if session[:user_id]
-        @user = User.find_by(id: session[:user_id])
-      end
+      @user = User.find_by(id: params[:id])
     end
 end

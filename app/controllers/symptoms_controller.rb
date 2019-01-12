@@ -4,7 +4,7 @@ class SymptomsController < ApplicationController
   before_action :set_symptom, only: [:show, :destroy]
 
   def show
-    if @user
+    if @user && logged_in?
       if @symptom
         @symptom_days = @symptom.days
         session[:user_id] = @user.id
@@ -30,9 +30,7 @@ class SymptomsController < ApplicationController
 
   private
     def set_user
-      if session[:user_id]
-        @user = User.find_by(id: session[:user_id])
-      end
+      @user = User.find_by(id: params[:id])
     end
 
     def symptom_params

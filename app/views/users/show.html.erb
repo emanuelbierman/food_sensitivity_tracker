@@ -29,14 +29,14 @@
         </tbody>
       </table>
       <div class="form-group">
-        <%= form_for [@user, @day] do |f| %>
+        <%= form_for [@user, @days_food] do |f| %>
           <%= f.collection_select(:food_ids, @user.food_names, :id, :name, {include_blank: 'Choose a food', selected: 'Choose a food'}) %>
           <%= f.fields_for :foods, @day.foods.build do |foods_fields| %>
             <br><%= foods_fields.text_field :name, placeholder: "Or create a new food" %>
             <br>
             <%= foods_fields.number_field :serving, placeholder: "Servings (required)" %>
           <% end %>
-          <%= f.text_field :comments, value: @day.comments, placeholder: "Comments for today?"  %>
+          <%= f.text_field :comments, value: @days_food.comments, placeholder: "Comments for today?"  %>
           <%= f.submit "Add food", class: "btn btn-primary" %>
         <% end %>
       </div>
