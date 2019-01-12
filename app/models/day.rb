@@ -26,12 +26,14 @@ class Day < ActiveRecord::Base
     day.set_date if day.date.nil?
     day.set_month if day.month.nil?
     day.set_day_of_week if day.day_of_week.nil?
+    day.set_month_day_year if day.month_day_year.nil?
   end
 
   after_commit do |day|
     day.set_date if day.date.nil?
     day.set_month if day.month.nil?
     day.set_day_of_week if day.day_of_week.nil?
+    day.set_month_day_year if day.month_day_year.nil?
   end
 
   def set_date
@@ -44,6 +46,10 @@ class Day < ActiveRecord::Base
 
   def set_day_of_week
     self.day_of_week = self.created_at.strftime("%A")
+  end
+
+  def set_month_day_year
+    self.month_day_year = self.created_at.strftime("%m-%d-%y")
   end
 
   @@thirty_days = [4, 6, 9, 11]
