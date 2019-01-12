@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       if @user && @user == current_user
         redirect_to user_path(@user), notice: "You have been logged in."
       else
-        flash[:error] = "Sorry, #{current_user.username}, you do not have access to that account."
+        flash[:alert] = "Sorry, #{current_user.username}, you do not have access to that account."
         @user = User.new
         render 'new'
       end
@@ -24,11 +24,11 @@ class SessionsController < ApplicationController
         session[:user_id] = @user.id
         redirect_to user_path(@user), notice: "You have been logged in."
       else
-        flash[:error] = "Your username and password did not match."
+        flash[:alert] = "Your username and password did not match."
         render 'new'
       end
     else
-      flash[:error] = "Please enter a valid username, or sign up as a new user."
+      flash[:alert] = "Please enter a valid username, or else sign up as a new user."
       @user = User.new
       render 'new'
     end
