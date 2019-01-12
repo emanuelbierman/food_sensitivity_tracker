@@ -1,16 +1,8 @@
 class SessionsController < ApplicationController
 
-  before_action :set_user, only: :new
-
   def new
     if logged_in?
-      if @user && @user == current_user
-        redirect_to user_path(@user), notice: "You have been logged in."
-      else
-        flash[:alert] = "Sorry, #{current_user.username}, you do not have access to that account."
-        @user = User.new
-        render 'new'
-      end
+      redirect_to user_path(current_user)
     else
       @user = User.new
       render 'new'
@@ -41,8 +33,4 @@ class SessionsController < ApplicationController
     end
   end
 
-private
-  def set_user
-    @user = User.find_by(id: params[:id])
-  end
 end

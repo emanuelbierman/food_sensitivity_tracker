@@ -25,8 +25,7 @@ class UsersController < ApplicationController
         @day = current_day(@user.id)
         render "show"
       else
-        flash[:alert] = "You must be signed in as #{current_user.username} to access this page"
-        render "sessions/new"
+        redirect_to root_path, alert: "You must be signed in as #{current_user.username} to access this page"
       end
     else
       flash[:alert] = "You must be signed in to access this page"
