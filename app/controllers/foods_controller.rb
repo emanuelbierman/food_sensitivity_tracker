@@ -1,50 +1,29 @@
 class FoodsController < ApplicationController
-
-  before_action :set_user
   before_action :set_food, only: [:show, :destroy]
 
   def index
-    if @user
-      @user_foods = Food.foods_by_days_count(@user.id)
-      render 'index'
-    else
-      redirect_to root_path
-    end
+    @user_foods = Food.foods_by_days_count(@user.id)
+    render 'index'
   end
 
   def show
-    if @user
-      if @food
-        @food_days = @food.days
-        session[:user_id] = @user.id
-        render 'show'
-      else
-        redirect_to user_path(@user)
-      end
+    if @food
+      @food_days = @food.days
+      session[:user_id] = @user.id
+      render 'show'
     else
-      redirect_to root_path
+      redirect_to user_path(@user)
     end
   end
 
   def destroy
-    if @user
-      if @food
-        @food.destroy
-        redirect_to root_path, notice: "Your food has been deleted."
-      end
-    else
-      redirect_to root_path
+    if @food
+      @food.destroy
+      redirect_to root_path, notice: "Your food has been deleted."
     end
   end
 
   private
-    def food_params
-      params.require(:food).permit(
-        :name,
-        :serving
-      )
-    end
-
     def set_food
       @food = Food.find_by(id: params[:id])
     end

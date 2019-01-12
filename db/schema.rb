@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_11_152525) do
+ActiveRecord::Schema.define(version: 2019_01_12_223038) do
 
   create_table "days", force: :cascade do |t|
     t.integer "date"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2019_01_11_152525) do
     t.string "day_of_week"
     t.datetime "created_at"
     t.integer "user_id"
+    t.string "comments"
     t.index ["user_id"], name: "index_days_on_user_id"
   end
 

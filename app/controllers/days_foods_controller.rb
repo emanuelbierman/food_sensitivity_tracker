@@ -4,12 +4,20 @@ class DaysFoodsController < ApplicationController
   def create
     comments = params[:days_food][:comments]
     if @food.valid?
-      @days_food = DaysFood.create(day_id: current_day.id, food_id: @food.id, comments: comments)
-      redirect_to user_path(current_user)
-    elsif @user.errors.any?
+      @food.save
+      @day = current_day(current_user.id)
+      @days_food = DaysFood.create(day_id: @day.id, food_id: @food.id, comments: comments)
+      if @days_food.valid?
+        @days_food.save
+        @day.update(comments: @days_food.comments) if comments
+        redirect_to user_path(current_user), notice: "Your food has been entered."
+      elsif @days_food.errors.any?
+        flash[:alert] = []
+        redirect_to user_path(current_user), alert: @days_food.errors.full_messages
+      end
+    elsif @food.errors.any?
       flash[:alert] = []
-      @user.errors.full_messages.each {|message| flash[:alert] << message }
-      redirect_to root_path
+      redirect_to user_path(current_user), alert: @food.errors.full_messages
     end
   end
 
@@ -20,7 +28,7 @@ class DaysFoodsController < ApplicationController
 private
   def set_food
     serving = params[:days_food][:foods][:serving]
-    if params[:days_food][:food_id]
+    if !params[:days_food][:food_id].blank?
       food = Food.find_by(id: params[:days_food][:food_id])
       @food = Food.create(name: food.name, serving: serving)
     elsif params[:days_food][:foods][:name]
@@ -31,11 +39,9 @@ private
 
   def days_food_params
     params.require(:days_food).permit(
-      :comments,
       :food_id,
-      foods: [:name, :serving],
-      :symptom_id,
-      symptoms: [:description, :frequency]
+      days: [:comments],
+      foods: [:name, :serving]
     )
   end
 end

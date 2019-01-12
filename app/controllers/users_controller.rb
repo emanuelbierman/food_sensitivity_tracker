@@ -9,8 +9,7 @@ class UsersController < ApplicationController
       redirect_to user_path(@user), notice: "Your account was successfully created."
     elsif @user.errors.any?
       flash[:alert] = []
-      @user.errors.full_messages.each {|message| flash[:alert] << message }
-      redirect_to root_path
+      redirect_to root_path, alert: @user.errors.full_messages
     end
   end
 

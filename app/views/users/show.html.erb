@@ -36,7 +36,7 @@
             <br>
             <%= foods_fields.number_field :serving, placeholder: "Servings (required)" %>
           <% end %>
-          <%= f.text_field :comments, value: @days_food.comments, placeholder: "Comments?"  %>
+          <%= f.text_field :comments, value: @day.comments, placeholder: "Comments?"  %>
           <%= f.submit "Add food", class: "btn btn-primary" %>
         <% end %>
       </div>
