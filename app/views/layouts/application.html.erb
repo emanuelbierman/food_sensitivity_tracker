@@ -1,17 +1,13 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>FoodIntoleranceTracker</title>
+    <title>Food Intolerance Tracker</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -39,10 +35,17 @@
           </p>
         <% end %>
       <% end %>
-      <% if flash[:alert] %>
+
+      <% if flash[:alert].class == String %>
         <p class="alert alert-warning" role="alert">
           <%= flash[:alert] %>
         </p>
+      <% elsif flash[:alert].class == Array %>
+        <% flash[:alert].each do |alert| %>
+          <p class="alert alert-warning" role="alert">
+            <%= alert %>
+          </p>
+        <% end %>
       <% end %>
     </div>
 

@@ -3,6 +3,10 @@ class DaysFoodsController < ApplicationController
   before_action :set_user
   before_action :set_days_food
 
+  def create
+    
+  end
+
   def update
 
   end

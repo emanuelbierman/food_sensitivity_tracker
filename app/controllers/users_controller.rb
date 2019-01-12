@@ -8,10 +8,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
-    if @user
+    if @user.valid?
       session[:user_id] = @user.id
-      redirect_to root_path
-    else
+      redirect_to user_path(@user), notice: "Your account was successfully created."
+    elsif @user.errors.any?
+      flash[:alert] = []
+      @user.errors.full_messages.each {|message| flash[:alert] << message }
       redirect_to root_path
     end
   end
