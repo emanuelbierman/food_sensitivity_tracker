@@ -2,10 +2,6 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:show]
 
-  def new
-    @user = User.new
-  end
-
   def create
     @user = User.create(user_params)
     if @user.valid?
@@ -44,9 +40,5 @@ class UsersController < ApplicationController
         :username,
         :password
       )
-    end
-
-    def set_user
-      @user = User.find_by(id: params[:id])
     end
 end

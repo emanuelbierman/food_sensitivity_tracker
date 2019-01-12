@@ -38,10 +38,6 @@ class FoodsController < ApplicationController
   end
 
   private
-    def set_user
-      @user = User.find_by(id: params[:id])
-    end
-
     def food_params
       params.require(:food).permit(
         :name,

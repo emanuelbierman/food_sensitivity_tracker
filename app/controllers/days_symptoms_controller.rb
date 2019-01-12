@@ -8,10 +8,6 @@ class DaysSymptomsController < ApplicationController
   end
 
 private
-  def set_user
-    @user = User.find_by(id: params[:id])
-  end
-
   def set_days_symptom
     @days_symptom = DaysSymptom.find_by(id: params[:id])
   end

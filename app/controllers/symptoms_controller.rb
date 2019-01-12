@@ -29,10 +29,6 @@ class SymptomsController < ApplicationController
   end
 
   private
-    def set_user
-      @user = User.find_by(id: params[:id])
-    end
-
     def symptom_params
       params.require(:symptom).permit(
         :description,

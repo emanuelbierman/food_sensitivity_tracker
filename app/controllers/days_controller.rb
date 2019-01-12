@@ -58,10 +58,6 @@ class DaysController < ApplicationController
   end
 
   private
-    def set_user
-      @user = User.find_by(id: params[:id])
-    end
-
     def set_day
       if params[:id]
         @day = Day.find_by(id: params[:id])
