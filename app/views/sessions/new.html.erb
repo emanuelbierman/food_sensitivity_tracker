@@ -2,7 +2,7 @@
 <div class="card" style="width: 18rem;">
   <h5 class="card-header">Existing User?</h5>
   <div class="card-body">
-    <%= form_for @user, url: {controller: "sessions", action: "create"} do |f| %>
+    <%= form_for @user, url: "/signin" do |f| %>
       <div class="form-group">
         <%= f.label :name, "Username:"%>
         <%= f.text_field :username %>
@@ -18,7 +18,7 @@
 <div class="card" style="width: 18rem;">
   <h5 class="card-header">New User?</h5>
   <div class="card-body">
-    <%= form_for @user, url: {controller: "users", action: "create"} do |f| %>
+    <%= form_for @user, url: "/signup" do |f| %>
       <div class="form-group">
         <%= f.label :name, "Username:"%>
         <%= f.text_field :username %>

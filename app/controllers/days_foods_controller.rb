@@ -21,10 +21,6 @@ class DaysFoodsController < ApplicationController
     end
   end
 
-  def update
-    @days_food = DaysFood.find_by(id: params[:id])
-  end
-
 private
   def set_food
     serving = params[:days_food][:foods][:serving]
