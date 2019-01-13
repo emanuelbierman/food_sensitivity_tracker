@@ -2,7 +2,7 @@ class FoodsController < ApplicationController
   before_action :set_food, only: [:show, :destroy]
 
   def index
-    @user_foods = Food.foods_by_days_count(current_user.id)
+    @user_foods_grouped = Food.foods_by_days_count(current_user.id)
     render 'index'
   end
 

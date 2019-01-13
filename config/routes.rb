@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  # root "users#show"
-  # get "signup", to: "users#new"
   root to: "sessions#new"
   post "/signin", to: "sessions#create"
   post "/signup", to: "users#create"
@@ -11,7 +9,7 @@ Rails.application.routes.draw do
     resources :days_symptoms, only: [:create]
     resources :days, only: [:index]
     resources :foods, only: [:index, :show, :destroy]
-    resources :symptoms, only: [:show, :destroy]
+    resources :symptoms, only: [:index, :show, :destroy]
   end
 
 

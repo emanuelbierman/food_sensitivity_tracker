@@ -14,5 +14,4 @@ class Food < ActiveRecord::Base
     foods = self.joins(:days).where(days: { user_id: user_id})
     foods.group(:name).order(:id, days_count: :desc)
   end
-
 end

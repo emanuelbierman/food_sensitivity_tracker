@@ -1,6 +1,11 @@
 class SymptomsController < ApplicationController
   before_action :set_symptom, only: [:show, :destroy]
 
+  def index
+    @user_symptoms_grouped = Symptom.symptoms_by_days_count(current_user.id)
+    render 'index'
+  end
+
   def show
     if @symptom
       @symptom_days = @symptom.days

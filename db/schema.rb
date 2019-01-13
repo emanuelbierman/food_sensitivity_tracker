@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_12_223038) do
+ActiveRecord::Schema.define(version: 2019_01_13_190703) do
 
   create_table "days", force: :cascade do |t|
     t.integer "date"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2019_01_12_223038) do
   create_table "symptoms", force: :cascade do |t|
     t.string "description"
     t.integer "frequency"
+    t.integer "days_count"
   end
 
   create_table "users", force: :cascade do |t|
