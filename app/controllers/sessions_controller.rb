@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   skip_before_action :require_login
   skip_before_action :require_user
-  
+
   def new
     if logged_in?
       redirect_to user_path(current_user)
@@ -28,6 +28,23 @@ class SessionsController < ApplicationController
     end
   end
 
+  def create_from_facebook
+    @user = User.new do |u|
+      u.uid = auth['uid']
+      u.name = auth['info']['name']
+      u.email = auth['info']['email']
+      u.image = auth['info']['image']
+    end
+    if @user && @user.name
+      @facebook_user = @user
+      @user.username = @user.name
+      render 'new'
+    else
+      flash[:alert] = "There was an error with logging in via Facebook."
+      redirect_to root_path
+    end
+  end
+
   def destroy
     if logged_in?
       session.destroy
@@ -35,4 +52,9 @@ class SessionsController < ApplicationController
     end
   end
 
+private
+
+  def auth
+    request.env['omniauth.auth']
+  end
 end

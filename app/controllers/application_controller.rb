@@ -32,4 +32,8 @@ private
       end
     end
   end
+
+  # def facebook_user?
+  #   !!@user.name
+  # end
 end
