@@ -1,15 +1,16 @@
 class DaysSymptomsController < ApplicationController
-  before_action :set_symptom
 
   def create
-    comments = params[:days_symptom][:comments]
+    @symptom = DaysSymptom.create_symptom_from(days_symptom_params)
     if @symptom.valid?
       @symptom.save
       @day = current_day(current_user.id)
+      comments = params[:days_symptom][:comments]
       @days_symptom = DaysSymptom.create(day_id: @day.id, symptom_id: @symptom.id, comments: comments)
+      @days_symptom.update(comments: comments) if comments
       if @days_symptom.valid?
         @days_symptom.save
-        @day.update(comments: @days_symptom.comments) if comments
+        @day.update(comments: @days_symptom.comments) if @days_symptom.comments
         redirect_to user_path(current_user), notice: "Your symptom has been entered."
       elsif @days_symptom.errors.any?
         flash[:alert] = []
@@ -22,17 +23,6 @@ class DaysSymptomsController < ApplicationController
   end
 
 private
-  def set_symptom
-    frequency = params[:days_symptom][:symptoms][:frequency]
-    if !params[:days_symptom][:symptom_id].blank?
-      symptom = Symptom.find_by(id: params[:days_symptom][:symptom_id])
-      @symptom = Symptom.create(description: symptom.description, frequency: frequency)
-    elsif params[:days_symptom][:symptoms][:description]
-      description = params[:days_symptom][:symptoms][:description]
-      @symptom = Symptom.create(description: description, frequency: frequency)
-    end
-  end
-
   def days_symptom_params
     params.require(:days_symptom).permit(
       :comments,
