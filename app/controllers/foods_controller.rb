@@ -10,9 +10,8 @@ class FoodsController < ApplicationController
     if @food
       @food_days = @food.days
       render 'show'
-    elsif @food.errors.any?
-      flash[:alert] = []
-      redirect_to user_path(current_user), alert: @food.errors.full_messages
+    else
+      redirect_to user_foods_path(current_user), alert: "Your food was not found."
     end
   end
 

@@ -6,13 +6,12 @@ Rails.application.routes.draw do
   post "/signin", to: "sessions#create"
   post "/signup", to: "users#create"
   get "/signout", to: "sessions#destroy"
-  get "/users/:user_id/foods/:id/symptoms", to: "foods#show"
   resources :users do
     resources :days_foods, only: [:create]
     resources :days_symptoms, only: [:create]
     resources :days, only: [:index]
-    resources :foods, only: [:index, :destroy]
-    resources :symptoms, only: [:destroy]
+    resources :foods, only: [:index, :show, :destroy]
+    resources :symptoms, only: [:show, :destroy]
   end
 
 

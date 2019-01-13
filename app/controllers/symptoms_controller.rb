@@ -1,41 +1,23 @@
 class SymptomsController < ApplicationController
-
-  before_action :set_user
   before_action :set_symptom, only: [:show, :destroy]
 
   def show
-    if @user && logged_in?
-      if @symptom
-        @symptom_days = @symptom.days
-        session[:user_id] = @user.id
-        render 'show'
-      else
-        redirect_to user_path(@user)
-      end
+    if @symptom
+      @symptom_days = @symptom.days
+      render 'show'
     else
-      redirect_to root_path
+      redirect_back(fallback_location: user_path(current_user), alert: "Your symptom was not found.")
     end
   end
 
   def destroy
-    if @user
-      if @symptom
-        @symptom.destroy
-        redirect_to root_path, notice: "Your symptom has been deleted."
-      end
-    else
-      redirect_to root_path
+    if @symptom
+      @symptom.destroy
+      redirect_to user_path(current_user), notice: "Your symptom has been deleted."
     end
   end
 
   private
-    def symptom_params
-      params.require(:symptom).permit(
-        :description,
-        :frequency
-      )
-    end
-
     def set_symptom
       @symptom = Symptom.find_by(id: params[:id])
     end

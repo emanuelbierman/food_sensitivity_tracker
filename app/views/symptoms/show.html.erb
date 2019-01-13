@@ -4,7 +4,7 @@
     <div class="row">
       <div class="card" style="width: 18rem;">
         <h5 class="card-title">
-          When you experienced <%= @symptom.description %>, you ate:
+          When you had <%= @symptom.description %>, you ate:
         </h5>
         <div class="card-body">
           <h6 class="card-subtitle mb-2 text-muted">
@@ -14,7 +14,7 @@
             <% day.foods.each do |food| %>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                  <%= link_to food.name, user_food_path(@user, food) %>
+                  <%= link_to food.name, user_food_path(current_user, food) %>
                 </li>
               </ul>
             <% end %>
@@ -34,7 +34,7 @@
               <% day.previous_day_foods.each do |food| %>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
-                    <%= link_to food.name, user_food_path(@user, food) %>
+                    <%= link_to food.name, user_food_path(current_user, food) %>
                   </li>
                 </ul>
               <% end %>
@@ -55,7 +55,7 @@
               <% day.two_days_ago_foods.each do |food| %>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
-                    <%= link_to food.name, user_food_path(@user, food) %>
+                    <%= link_to food.name, user_food_path(current_user, food) %>
                   </li>
                 </ul>
               <% end %>
