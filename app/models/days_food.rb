@@ -2,12 +2,14 @@ class DaysFood < ActiveRecord::Base
   belongs_to :day
   belongs_to :food
 
-  # accepts_nested_attributes_for :foods
-
-  # def foods_attributes=(food_attributes)
-  #   food = Food.where(name: food_attributes[:name]).first_or_create do |food|
-  #     food.serving = food_attributes[:serving]
-  #   end
-  #   self.foods << food
-  # end
+  def self.create_food_from(params)
+    serving = params[:foods][:serving].to_i
+    if !params[:food_id].blank?
+      food = Food.find_by(id: params[:food_id].to_i)
+      Food.create(name: food.name, serving: serving)
+    elsif !params[:foods][:name].blank?
+      name = params[:foods][:name]
+      Food.create(name: name, serving: serving)
+    end
+  end
 end

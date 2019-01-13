@@ -1,15 +1,16 @@
 class DaysFoodsController < ApplicationController
-  before_action :set_food
 
   def create
-    comments = params[:days_food][:comments]
+    @food = DaysFood.create_food_from(days_food_params)
     if @food.valid?
       @food.save
       @day = current_day(current_user.id)
-      @days_food = DaysFood.create(day_id: @day.id, food_id: @food.id, comments: comments)
+      comments = params[:days_food][:comments]
+      @days_food = DaysFood.create(day_id: @day.id, food_id: @food.id)
+      @days_food.update(comments: comments) if comments
       if @days_food.valid?
         @days_food.save
-        @day.update(comments: @days_food.comments) if comments
+        @day.update(comments: @days_food.comments) if @days_food.comments
         redirect_to user_path(current_user), notice: "Your food has been entered."
       elsif @days_food.errors.any?
         flash[:alert] = []
@@ -22,17 +23,6 @@ class DaysFoodsController < ApplicationController
   end
 
 private
-  def set_food
-    serving = params[:days_food][:foods][:serving]
-    if !params[:days_food][:food_id].blank?
-      food = Food.find_by(id: params[:days_food][:food_id])
-      @food = Food.create(name: food.name, serving: serving)
-    elsif params[:days_food][:foods][:name]
-      name = params[:days_food][:foods][:name]
-      @food = Food.create(name: name, serving: serving)
-    end
-  end
-
   def days_food_params
     params.require(:days_food).permit(
       :food_id,
