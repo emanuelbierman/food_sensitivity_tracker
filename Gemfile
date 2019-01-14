@@ -29,6 +29,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'pry'
 
+gem 'thin'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

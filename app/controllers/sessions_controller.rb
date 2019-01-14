@@ -32,10 +32,10 @@ class SessionsController < ApplicationController
     @user = User.new do |u|
       u.uid = auth['uid']
       u.name = auth['info']['name']
-      u.email = auth['info']['email']
       u.image = auth['info']['image']
+      u.email = auth['info']['email'] if auth['info']['email']
     end
-    if @user && @user.name
+    if @user.try(:name)
       @facebook_user = @user
       @user.username = @user.name
       render 'new'
