@@ -1,22 +1,36 @@
-# food_intolerance_tracker
+# Food Intolerance Tracker
+
 Discover the effect that the food that you eat has on your body by tracking your food and symptoms.
 
-Things you may want to cover:
 
-* Ruby version
+## Installing
 
-* System dependencies
+To see a demo of this tracker in action, please see my [homepage][].
 
-* Configuration
+To get it running yourself:
 
-* Database creation
+$ git clone
 
-* Database initialization
+$ bundle install
 
-* How to run the test suite
+$ rake db:migrate
 
-* Services (job queues, cache servers, search engines, etc.)
+$ rake db:seed
 
-* Deployment instructions
+$ thin start --ssl
 
-* ...
+To enable OmniAuth login via Facebook, use the [OmniAuth docs][] and the [OmniAuth::Facebook docs][] (you'll need to supply your own key and secret in the ```.env``` file).
+
+## Contributing
+
+[Contributions][] are welcome.
+
+## License
+
+[MIT License][]
+
+[]: https://emanuelbierman.com
+[]: https://github.com/omniauth/omniauth#getting-started
+[]: https://github.com/mkdynamic/omniauth-facebook#configuring
+[]: https://github.com/emanuelbierman/food_intolerance_tracker/issues
+[]: https://opensource.org/licenses/MIT

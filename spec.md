@@ -26,7 +26,7 @@ Specs:
 - [x] Include signup (how e.g. Devise)
 - [x] Include login (how e.g. Devise)
 - [x] Include logout (how e.g. Devise)
-- [ ] Include third party signup/login (how e.g. Devise/OmniAuth)
+- [x] Include third party signup/login (how e.g. Devise/OmniAuth)
 - [x] Include nested resource show or index
   URL: /users/:user_id/foods
   URL: /users/:user_id/foods/:food_id
