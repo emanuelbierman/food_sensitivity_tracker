@@ -9,14 +9,14 @@
 user = User.create(username: "sample user", password: "password")
 date = Time.now.strftime("%d")
 day = Day.create(date: date, user_id: user.id)
-food = Food.create(name: "pizza", serving: 1)
-days_food = DaysFood.create(day_id: day.id, food_id: food.id, comments: "peer-pressured into eating at birthday party")
+food = Food.create(name: "pizza")
+days_food = DaysFood.create(day_id: day.id, food_id: food.id, serving: 1, comments: "peer-pressured into eating at birthday party")
 food.save
-food2 = Food.create(name: "ice cream", serving: 2)
-days_food2 = DaysFood.create(day_id: day.id, food_id: food2.id)
+food2 = Food.create(name: "ice cream")
+days_food2 = DaysFood.create(day_id: day.id, food_id: food2.id, serving: 2)
 food2.save
-symptom = Symptom.create(description: "mucus", frequency: 1)
-days_symptom = DaysSymptom.create(day_id: day.id, symptom_id: symptom.id, comments: "mucus after cheese")
+symptom = Symptom.create(description: "mucus")
+days_symptom = DaysSymptom.create(day_id: day.id, symptom_id: symptom.id, frequency: 1, comments: "mucus after cheese")
 symptom.save
 
 # food1 = Food.create(name: "pretzels", serving: 2)

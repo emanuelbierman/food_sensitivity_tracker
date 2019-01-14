@@ -6,6 +6,11 @@
       <%= day.day_of_week + ", " + day.month_day_year %>
     </div>
     <ul class="list-group list-group-flush">
+      <% day.comments.uniq.each do |comment| %>
+        <li class="list-group-item">
+          <%= comment %>
+        </li>
+      <% end %>
       <li class="list-group-item">
         <table class="table table-sm">
           <thead>

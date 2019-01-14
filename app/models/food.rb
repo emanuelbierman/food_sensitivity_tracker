@@ -2,7 +2,7 @@ class Food < ActiveRecord::Base
   has_many :days_food
   has_many :days, through: :days_food, source: :day
   has_many :symptoms, through: :day
-  validates_presence_of :name, :serving
+  validates_presence_of :name
 
   after_commit :update_days_count, on: [:create, :update]
 

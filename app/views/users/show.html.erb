@@ -30,12 +30,13 @@
       </table>
       <div class="form-group">
         <%= form_for [@user, @days_food] do |f| %>
+          <%= f.hidden_field :day_id, value: @day.id %>
           <%= f.collection_select(:food_id, @user.food_names, :id, :name, {include_blank: 'Choose a food', selected: 'Choose a food'}) %>
           <%= f.fields_for :foods, @day.foods.build do |foods_fields| %>
             <br><%= foods_fields.text_field :name, placeholder: "Or create a new food" %>
             <br>
-            <%= foods_fields.number_field :serving, placeholder: "Servings (required)" %>
           <% end %>
+          <%= f.number_field :serving, placeholder: "Servings (required)" %>
           <%= f.text_field :comments, value: @day.comments, placeholder: "Comments?"  %>
           <%= f.submit "Add food", class: "btn btn-primary" %>
         <% end %>
@@ -65,12 +66,13 @@
       </table>
       <div class="form-group">
         <%= form_for [@user, @days_symptom] do |f| %>
+          <%= f.hidden_field :day_id, value: @day.id %>
           <%= f.collection_select(:symptom_id, @user.symptom_descriptions, :id, :description, {include_blank: 'Choose a symptom', selected: 'Choose a symptom'}) %>
           <%= f.fields_for :symptoms, @day.symptoms.build do |symptoms_fields| %>
             <br><%= symptoms_fields.text_field :description, placeholder: "Or create new symptom" %>
             <br>
-            <%= symptoms_fields.number_field :frequency, placeholder: "Frequency (required)" %>
           <% end %>
+          <%= f.number_field :frequency, placeholder: "Frequency (required)" %>
           <%= f.text_field :comments, value: @days_symptom.comments, placeholder: "Comments for today?"  %>
           <%= f.submit "Add Symptom", class: "btn btn-primary" %>
         <% end %>

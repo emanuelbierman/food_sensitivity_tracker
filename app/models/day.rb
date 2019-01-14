@@ -1,19 +1,11 @@
 class Day < ActiveRecord::Base
   belongs_to :user
-  has_many :days_food
-  has_many :foods, through: :days_food
-  has_many :days_symptom
-  has_many :symptoms, through: :days_symptom
+  has_many :days_foods
+  has_many :foods, through: :days_foods
+  has_many :days_symptoms
+  has_many :symptoms, through: :days_symptoms
   validates_presence_of :user_id, :date
   # validates_uniqueness_of :date, scope: :user_id
-  accepts_nested_attributes_for :symptoms
-
-  def symptoms_attributes=(symptom_attributes)
-    symptom = Symptom.where(name: symptom_attributes[:description]).first_or_create do |food|
-      symptom.serving = symptom_attributes[:frequency]
-    end
-    self.symptoms << symptom
-  end
 
   after_find do |day|
     day.set_date if day.date.nil?
@@ -27,6 +19,17 @@ class Day < ActiveRecord::Base
     day.set_month if day.month.nil?
     day.set_day_of_week if day.day_of_week.nil?
     day.set_month_day_year if day.month_day_year.nil?
+  end
+
+  def comments
+    total_comments = []
+    self.days_foods.each do |days_food|
+      total_comments << days_food.comments
+    end
+    self.days_symptoms.each do |days_symptom|
+      total_comments << days_symptom.comments
+    end
+    total_comments
   end
 
   def set_date

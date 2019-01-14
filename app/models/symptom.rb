@@ -2,7 +2,7 @@ class Symptom < ActiveRecord::Base
   has_many :days_symptom
   has_many :days, through: :days_symptom, source: :day
   has_many :foods, through: :day
-  validates_presence_of :description, :frequency
+  validates_presence_of :description
 
   after_commit :update_days_count, on: [:create, :update]
 

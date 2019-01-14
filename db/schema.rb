@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_13_190703) do
+ActiveRecord::Schema.define(version: 2019_01_14_174113) do
 
   create_table "days", force: :cascade do |t|
     t.integer "date"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 2019_01_13_190703) do
     t.string "day_of_week"
     t.datetime "created_at"
     t.integer "user_id"
-    t.string "comments"
     t.index ["user_id"], name: "index_days_on_user_id"
   end
 
@@ -27,6 +26,7 @@ ActiveRecord::Schema.define(version: 2019_01_13_190703) do
     t.string "comments"
     t.integer "day_id"
     t.integer "food_id"
+    t.integer "serving"
     t.index ["day_id"], name: "index_days_foods_on_day_id"
     t.index ["food_id"], name: "index_days_foods_on_food_id"
   end
@@ -35,19 +35,18 @@ ActiveRecord::Schema.define(version: 2019_01_13_190703) do
     t.string "comments"
     t.integer "day_id"
     t.integer "symptom_id"
+    t.integer "frequency"
     t.index ["day_id"], name: "index_days_symptoms_on_day_id"
     t.index ["symptom_id"], name: "index_days_symptoms_on_symptom_id"
   end
 
   create_table "foods", force: :cascade do |t|
     t.string "name"
-    t.integer "serving"
     t.integer "days_count"
   end
 
   create_table "symptoms", force: :cascade do |t|
     t.string "description"
-    t.integer "frequency"
     t.integer "days_count"
   end
 

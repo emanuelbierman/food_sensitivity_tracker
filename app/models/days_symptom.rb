@@ -1,6 +1,7 @@
 class DaysSymptom < ActiveRecord::Base
   belongs_to :day
   belongs_to :symptom
+  validates_presence_of :frequency
 
   def self.create_symptom_from(params)
     frequency = params[:symptoms][:frequency].to_i

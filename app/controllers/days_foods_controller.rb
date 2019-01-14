@@ -1,16 +1,16 @@
 class DaysFoodsController < ApplicationController
 
   def create
-    @food = DaysFood.create_food_from(days_food_params)
+    binding.pry
+    @food = DaysFood.create(days_food_params)
     if @food.valid?
       @food.save
       @day = current_day(current_user.id)
       comments = params[:days_food][:comments]
-      @days_food = DaysFood.create(day_id: @day.id, food_id: @food.id)
-      @days_food.update(comments: comments) if comments
+      @days_food = DaysFood.create(day_id: @day.id, food_id: @food.id, comments: comments)
       if @days_food.valid?
         @days_food.save
-        @day.update(comments: @days_food.comments) if @days_food.comments
+        # @day.update(comments: @days_food.comments) if @days_food.comments
         redirect_to user_path(current_user), notice: "Your food has been entered."
       elsif @days_food.errors.any?
         flash[:alert] = []
