@@ -14,9 +14,11 @@ class DaysFoodsController < ApplicationController
 private
   def days_food_params
     params.require(:days_food).permit(
-      :food_id,
-      days: [:comments],
-      foods: [:name, :serving]
+      :day_id,
+      :food_attributes,
+      :serving,
+      :comments,
+      :food_id
     )
   end
 end
