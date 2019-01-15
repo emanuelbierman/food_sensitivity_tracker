@@ -16,14 +16,17 @@
           </tr>
         </thead>
         <tbody>
-          <% @day.foods.each do |food| %>
+          <% @day.days_foods.each do |days_food| %>
           <tr>
             <th scope="row">
-              <%= link_to food.name, user_food_path(@user, food) %>
+              <%= link_to days_food.food.name, user_food_path(@user, days_food.food) %>
             </th>
             <td>
-              <%= food.serving %>  /<%= link_to("delete", "/users/#{@user.id}/foods/#{food.id}", method: :delete) %>
+              <%= days_food.serving %>  /<%= link_to("delete", "/users/#{@user.id}/foods/#{days_food.food.id}", method: :delete) %>
             </td>
+            <th scope="row">
+              <%= days_food.comments %>
+            </th>
           </tr>
           <% end %>
         </tbody>
@@ -32,12 +35,12 @@
         <%= form_for [@user, @days_food] do |f| %>
           <%= f.hidden_field :day_id, value: @day.id %>
           <%= f.collection_select(:food_id, @user.food_names, :id, :name, {include_blank: 'Choose a food', selected: 'Choose a food'}) %>
-          <%= f.fields_for :foods, @day.foods.build do |foods_fields| %>
-            <br><%= foods_fields.text_field :name, placeholder: "Or create a new food" %>
+          <%= f.fields_for :food, @days_food.food.build do |food_fields| %>
+            <br><%= food_fields.text_field :name, placeholder: "Or create a new food" %>
             <br>
           <% end %>
           <%= f.number_field :serving, placeholder: "Servings (required)" %>
-          <%= f.text_field :comments, value: @day.comments, placeholder: "Comments?"  %>
+          <%= f.text_field :comments, value: @days_food.comments, placeholder: "Comments?"  %>
           <%= f.submit "Add food", class: "btn btn-primary" %>
         <% end %>
       </div>
@@ -52,14 +55,17 @@
           </tr>
         </thead>
         <tbody>
-          <% @day.symptoms.each do |symptom| %>
+          <% @day.days_symptoms.each do |days_symptom| %>
           <tr>
             <th scope="row">
-              <%= link_to symptom.description, user_symptom_path(@user, symptom) %>
+              <%= link_to days_symptom.symptom.description, user_symptom_path(@user, days_symptom.symptom) %>
             </th>
             <td>
-              <%= symptom.frequency %>  /<%= link_to("delete", "/users/#{@user.id}/symptoms/#{symptom.id}", method: :delete) %>
+              <%= days_symptom.frequency %>  /<%= link_to("delete", "/users/#{@user.id}/symptoms/#{days_symptom.symptom.id}", method: :delete) %>
             </td>
+            <th scope="row">
+              <%= days_symptom.comments %>
+            </th>
           </tr>
           <% end %>
         </tbody>
@@ -68,8 +74,8 @@
         <%= form_for [@user, @days_symptom] do |f| %>
           <%= f.hidden_field :day_id, value: @day.id %>
           <%= f.collection_select(:symptom_id, @user.symptom_descriptions, :id, :description, {include_blank: 'Choose a symptom', selected: 'Choose a symptom'}) %>
-          <%= f.fields_for :symptoms, @day.symptoms.build do |symptoms_fields| %>
-            <br><%= symptoms_fields.text_field :description, placeholder: "Or create new symptom" %>
+          <%= f.fields_for :symptom, @days_symptom.symptom.build do |symptom_fields| %>
+            <br><%= symptom_fields.text_field :description, placeholder: "Or create new symptom" %>
             <br>
           <% end %>
           <%= f.number_field :frequency, placeholder: "Frequency (required)" %>

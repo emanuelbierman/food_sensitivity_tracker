@@ -18,10 +18,12 @@ class UsersController < ApplicationController
     if @user == current_user
       session[:user_id] = @user.id
       @food = Food.new
-      @days_food = DaysFood.new
       @symptom = Symptom.new
-      @days_symptom = DaysSymptom.new
       @day = current_day(@user.id)
+      # @days_food = DaysFood.new
+      # @days_symptom = DaysSymptom.new
+      @days_food = @day.days_foods.build(day_id: @day.id)
+      @days_symptom = DaysSymptom.new(day_id: @day.id)
       render "show"
     else
       redirect_to user_path(current_user), alert: "You do not have permission to access this page."

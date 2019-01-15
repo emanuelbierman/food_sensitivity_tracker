@@ -1,13 +1,15 @@
 class Food < ActiveRecord::Base
-  has_many :days_food
-  has_many :days, through: :days_food, source: :day
+  has_many :days_foods
+  has_many :days, through: :days_foods, source: :day
   has_many :symptoms, through: :day
   validates_presence_of :name
+  validates_uniqueness_of :name
 
   after_commit :update_days_count, on: [:create, :update]
+  after_save :update_days_count
 
   def update_days_count
-    self.days_count = self.days.count
+    self.days_count = self.days.count if self.days_count.nil?
   end
 
   def self.foods_by_days_count(user_id)

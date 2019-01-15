@@ -18,6 +18,7 @@ class FoodsController < ApplicationController
   def destroy
     if @food
       @food.destroy
+      # Do I need to destroy the associated DaysFood instance?
       redirect_to user_path(current_user), notice: "Your food has been deleted."
     end
   end

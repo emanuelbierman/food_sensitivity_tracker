@@ -4,7 +4,10 @@ class DaysFood < ActiveRecord::Base
   validates_presence_of :serving
 
   def foods=(params)
-    
+    day = Day.find_by(id: params[:day_id].to_i)
+    food = Food.find_or_create_by()
+    comments = params[:comments]
+    days_food = DaysFood.create(day_id: day.id, food_id: food.id, comments: comments)
   end
 
   # def self.create_food_from(params)

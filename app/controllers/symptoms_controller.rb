@@ -18,6 +18,7 @@ class SymptomsController < ApplicationController
   def destroy
     if @symptom
       @symptom.destroy
+      # Do I need to destroy the associated DaysSymptom instance?
       redirect_to user_path(current_user), notice: "Your symptom has been deleted."
     end
   end
