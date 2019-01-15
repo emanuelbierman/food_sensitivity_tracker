@@ -18,15 +18,17 @@
         <tbody>
           <% @day.days_foods.each do |days_food| %>
           <tr>
-            <th scope="row">
-              <%= link_to days_food.food.name, user_food_path(@user, days_food.food) %>
-            </th>
-            <td>
-              <%= days_food.serving %>  /<%= link_to("delete", "/users/#{@user.id}/foods/#{days_food.food.id}", method: :delete) %>
-            </td>
-            <th scope="row">
-              <%= days_food.comments %>
-            </th>
+            <% if days_food.valid? %>
+              <th scope="row">
+                <%= link_to days_food.food.name, user_food_path(@user, days_food.food) %>
+              </th>
+              <td>
+                <%= days_food.serving %>  /<%= link_to("delete", "/users/#{@user.id}/foods/#{days_food.food.id}", method: :delete) %>
+              </td>
+              <th scope="row">
+                <%= days_food.comments %>
+              </th>
+            <% end %>
           </tr>
           <% end %>
         </tbody>
@@ -34,9 +36,9 @@
       <div class="form-group">
         <%= form_for [@user, @days_food] do |f| %>
           <%= f.hidden_field :day_id, value: @day.id %>
-          <%= f.collection_select(:food_id, @user.food_names, :id, :name, {include_blank: 'Choose a food', selected: 'Choose a food'}) %>
-          <%= f.fields_for :food, @days_food.food.build do |food_fields| %>
-            <br><%= food_fields.text_field :name, placeholder: "Or create a new food" %>
+          <%= f.collection_select(:food_id, @user.food_names, :id, :name, {include_blank: 'Existing food?', selected: 'Existing food?'}) %>
+          <%= f.fields_for :food do |food_fields| %>
+            <br><%= food_fields.text_field :name, placeholder: "Or create new food" %>
             <br>
           <% end %>
           <%= f.number_field :serving, placeholder: "Servings (required)" %>
@@ -57,15 +59,17 @@
         <tbody>
           <% @day.days_symptoms.each do |days_symptom| %>
           <tr>
-            <th scope="row">
-              <%= link_to days_symptom.symptom.description, user_symptom_path(@user, days_symptom.symptom) %>
-            </th>
-            <td>
-              <%= days_symptom.frequency %>  /<%= link_to("delete", "/users/#{@user.id}/symptoms/#{days_symptom.symptom.id}", method: :delete) %>
-            </td>
-            <th scope="row">
-              <%= days_symptom.comments %>
-            </th>
+            <% if days_symptom.valid? %>
+              <th scope="row">
+                <%= link_to days_symptom.symptom.description, user_symptom_path(@user, days_symptom.symptom) %>
+              </th>
+              <td>
+                <%= days_symptom.frequency %>  /<%= link_to("delete", "/users/#{@user.id}/symptoms/#{days_symptom.symptom.id}", method: :delete) %>
+              </td>
+              <th scope="row">
+                <%= days_symptom.comments %>
+              </th>
+            <% end %>
           </tr>
           <% end %>
         </tbody>
@@ -73,8 +77,8 @@
       <div class="form-group">
         <%= form_for [@user, @days_symptom] do |f| %>
           <%= f.hidden_field :day_id, value: @day.id %>
-          <%= f.collection_select(:symptom_id, @user.symptom_descriptions, :id, :description, {include_blank: 'Choose a symptom', selected: 'Choose a symptom'}) %>
-          <%= f.fields_for :symptom, @days_symptom.symptom.build do |symptom_fields| %>
+          <%= f.collection_select(:symptom_id, @user.symptom_descriptions, :id, :description, {include_blank: 'Existing symptom?', selected: 'Existing symptom?'}) %>
+          <%= f.fields_for :symptom do |symptom_fields| %>
             <br><%= symptom_fields.text_field :description, placeholder: "Or create new symptom" %>
             <br>
           <% end %>
