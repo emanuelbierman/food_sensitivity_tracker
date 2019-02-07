@@ -23,7 +23,7 @@
                 <%= link_to days_food.food.name, user_food_path(@user, days_food.food) %>
               </th>
               <td>
-                <%= days_food.serving %>  /<%= link_to("delete", "/users/#{@user.id}/foods/#{days_food.food.id}", method: :delete) %>
+                <%= days_food.serving %>  /<%= link_to("delete", "/users/#{@user.id}/days_foods/#{days_food.id}", method: :delete) %>
               </td>
               <th scope="row">
                 <%= days_food.comments %>
@@ -64,7 +64,7 @@
                 <%= link_to days_symptom.symptom.description, user_symptom_path(@user, days_symptom.symptom) %>
               </th>
               <td>
-                <%= days_symptom.frequency %>  /<%= link_to("delete", "/users/#{@user.id}/symptoms/#{days_symptom.symptom.id}", method: :delete) %>
+                <%= days_symptom.frequency %>  /<%= link_to("delete", "/users/#{@user.id}/days_symptoms/#{days_symptom.id}", method: :delete) %>
               </td>
               <th scope="row">
                 <%= days_symptom.comments %>

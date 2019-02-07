@@ -6,10 +6,10 @@ class Food < ActiveRecord::Base
   validates_uniqueness_of :name
 
   after_commit :update_days_count, on: [:create, :update]
-  after_save :update_days_count
+  after_find :update_days_count
 
   def update_days_count
-    self.days_count = self.days.count if self.days_count.nil?
+    self.days_count = self.days.uniq.count unless self.days_count.nil?
   end
 
   def self.foods_by_days_count(user_id)

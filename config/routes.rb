@@ -6,10 +6,10 @@ Rails.application.routes.draw do
   post "/signup", to: "users#create"
   get "/signout", to: "sessions#destroy"
   resources :users do
-    resources :days_foods, only: [:create]
+    resources :days_foods, only: [:create, :destroy]
     resources :days_symptoms, only: [:create]
     resources :days, only: [:index]
-    resources :foods, only: [:index, :show, :destroy]
+    resources :foods, only: [:index, :show]
     resources :symptoms, only: [:index, :show, :destroy]
   end
 

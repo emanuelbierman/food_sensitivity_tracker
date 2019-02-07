@@ -11,8 +11,9 @@ class DaysFood < ActiveRecord::Base
     days_food = DaysFood.create(day_id: day.id.to_s, food_id: food.id.to_s, comments: comments)
   end
 
-  def food_attributes=(attributes)
-    binding.pry
+  def foods_attributes=(attributes)
+    # binding.pry
+    attributes
   end
 
   # def self.create_food_from(params)

@@ -1,7 +1,6 @@
 class DaysFoodsController < ApplicationController
 
   def create
-    binding.pry
     @days_food = DaysFood.new(days_food_params)
     if @days_food.save
       redirect_to user_path(current_user), notice: "Your food has been entered."
@@ -11,14 +10,21 @@ class DaysFoodsController < ApplicationController
     end
   end
 
+  def destroy
+    @days_food = DaysFood.find_by(id: params[:id])
+    @food = @days_food.food
+    @days_food.destroy
+    redirect_to user_path(current_user), notice: "You removed #{@food.name} from this day."
+  end
+
 private
   def days_food_params
     params.require(:days_food).permit(
       :day_id,
-      :food_attributes,
       :serving,
       :comments,
-      :food_id
+      :food_id,
+      food: [:name]
     )
   end
 end

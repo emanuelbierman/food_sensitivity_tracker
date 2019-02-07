@@ -1,5 +1,5 @@
 class FoodsController < ApplicationController
-  before_action :set_food, only: [:show, :destroy]
+  before_action :set_food, only: [:show]
 
   def index
     @user_foods_grouped = Food.foods_by_days_count(current_user.id)
@@ -12,14 +12,6 @@ class FoodsController < ApplicationController
       render 'show'
     else
       redirect_to user_foods_path(current_user), alert: "Your food was not found."
-    end
-  end
-
-  def destroy
-    if @food
-      @food.destroy
-      # Do I need to destroy the associated DaysFood instance?
-      redirect_to user_path(current_user), notice: "Your food has been deleted."
     end
   end
 
