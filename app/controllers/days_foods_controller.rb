@@ -24,7 +24,7 @@ private
       :serving,
       :comments,
       :food_id,
-      food: [:name]
+      food_attributes: [:id, :name]
     )
   end
 end

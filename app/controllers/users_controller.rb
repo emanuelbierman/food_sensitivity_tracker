@@ -23,9 +23,10 @@ class UsersController < ApplicationController
       # @days_food = DaysFood.new
       # @days_symptom = DaysSymptom.new
       @days_food = @day.days_foods.build(day_id: @day.id)
-      @days_symptom = @day.days_symptoms.build(day_id: @day.id)
       @days_food.food = @food
-      @days_symptom.symptom = @symptom
+      @days_symptom = @day.days_symptoms.build(day_id: @day.id)
+      # @days_food.food = @food
+      # @days_symptom.symptom = @symptom
       render "show"
     else
       redirect_to user_path(current_user), alert: "You do not have permission to access this page."

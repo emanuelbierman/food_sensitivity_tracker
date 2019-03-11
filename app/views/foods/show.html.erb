@@ -8,7 +8,7 @@
         </h5>
         <div class="card-body">
           <h6 class="card-subtitle mb-2 text-muted">
-            Date: <%= day.date %>
+            Date: <%= day.month_day_year %>
           </h6>
           <p class="card-text">
             <% day.symptoms.each do |symptom| %>
@@ -28,7 +28,7 @@
           </h5>
           <div class="card-body">
             <h6 class="card-subtitle mb-2 text-muted">
-              Date: <%= day.next_day.date %>
+              Date: <%= day.next_day.month_day_year %>
             </h6>
             <p class="card-text">
               <% day.next_day_symptoms.each do |symptom| %>
@@ -49,7 +49,7 @@
           </h5>
           <div class="card-body">
             <h6 class="card-subtitle mb-2 text-muted">
-              Date: <%= day.two_days_later.date %>
+              Date: <%= day.two_days_later.month_day_year %>
             </h6>
             <p class="card-text">
               <% day.two_days_later_symptoms.each do |symptom| %>
