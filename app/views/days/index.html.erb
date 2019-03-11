@@ -20,13 +20,13 @@
             </tr>
           </thead>
           <tbody>
-            <% day.foods.each do |food| %>
+            <% day.days_foods.each do |days_food| %>
             <tr>
               <th scope="row">
-                <%= link_to food.name, user_food_path(@user, food) %>
+                <%= link_to days_food.food.name, user_food_path(@user, days_food.food) unless days_food.food.nil? %>
               </th>
               <td>
-                <%= food.serving %>
+                <%= days_food.serving unless days_food.serving.nil? %>
               </td>
             </tr>
             <% end %>
@@ -42,13 +42,13 @@
             </tr>
           </thead>
           <tbody>
-            <% day.symptoms.each do |symptom| %>
+            <% day.days_symptoms.each do |days_symptom| %>
             <tr>
               <th scope="row">
-                <%= link_to symptom.description, user_symptom_path(@user, symptom) %>
+                <%= link_to days_symptom.symptom.description, user_symptom_path(@user, days_symptom.symptom) unless days_symptom.symptom.nil? %>
               </th>
               <td>
-                <%= symptom.frequency %>
+                <%= days_symptom.frequency unless days_symptom.frequency.nil? %>
               </td>
             </tr>
             <% end %>

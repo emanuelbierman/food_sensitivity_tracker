@@ -17,6 +17,14 @@ class Food < ActiveRecord::Base
     foods.group(:name).order(:id, days_count: :desc)
   end
 
+  def serving(day_id)
+    self.days_foods.find(day_id).serving
+  end
+
+  def comments(day_id)
+    self.days_foods.find(day_id).comments
+  end
+
   # def name=(name)
   #   name.downcase
   # end

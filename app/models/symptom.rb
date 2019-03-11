@@ -16,4 +16,12 @@ class Symptom < ActiveRecord::Base
     symptoms = self.joins(:days).where(days: { user_id: user_id})
     symptoms.group(:description).order(:id, days_count: :desc)
   end
+
+  def frequency(day_id)
+    self.days_symptoms.find(day_id).frequency
+  end
+
+  def comments(day_id)
+    self.days_symptoms.find(day_id).comments
+  end
 end

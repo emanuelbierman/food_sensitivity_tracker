@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   end
 
   def days_descending
-    self.days.order(date: :desc)
+    self.days.order(created_at: :desc)
   end
 
 end
