@@ -3,7 +3,7 @@ class DaysFoodsController < ApplicationController
   def create
     @days_food = DaysFood.new(days_food_params)
     if @days_food.save
-      redirect_to user_path(current_user), notice: "Your food has been entered."
+      redirect_to user_path(current_user), notice: "You added #{@food.name}."
     else
       flash[:alert] = []
       redirect_to user_path(current_user), alert: @days_food.errors.full_messages
@@ -14,7 +14,7 @@ class DaysFoodsController < ApplicationController
     @days_food = DaysFood.find_by(id: params[:id])
     @food = @days_food.food
     @days_food.destroy
-    redirect_to user_path(current_user), notice: "You removed #{@food.name} from this day."
+    redirect_to user_path(current_user), notice: "You removed #{@food.name}."
   end
 
 private

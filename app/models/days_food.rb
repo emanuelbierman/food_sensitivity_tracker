@@ -20,7 +20,9 @@ class DaysFood < ActiveRecord::Base
   # end
 
   def food_attributes=(attributes)
-    self.food = Food.find_or_create_by(name: attributes[:name].downcase)
+    unless attributes[:name].blank?
+      self.food = Food.find_or_create_by(name: attributes[:name].downcase)
+    end
   end
 
   # def self.create_food_from(params)

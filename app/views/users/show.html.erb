@@ -79,7 +79,6 @@
           <%= f.collection_select(:symptom_id, @user.symptom_descriptions, :id, :description, {include_blank: 'Existing symptom?', selected: 'Existing symptom?'}) %>
           <%= f.fields_for :symptom do |symptom_fields| %>
             <br><%= symptom_fields.text_field :description, placeholder: "Or create new symptom" %>
-            <br>
           <% end %>
           <%= f.number_field :frequency, placeholder: "Frequency (required)" %>
           <%= f.text_field :comments, value: @days_symptom.comments, placeholder: "Comments for today?"  %>
